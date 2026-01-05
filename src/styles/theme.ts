@@ -1,0 +1,165 @@
+'use client'
+
+import { createTheme, ThemeOptions } from '@mui/material/styles'
+import { Roboto } from 'next/font/google'
+
+const roboto = Roboto({
+  weight: ['300', '400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+// Colores del proyecto Control
+const themeOptions: ThemeOptions = {
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#027483',
+      light: '#00abc2',
+      dark: '#015c68',
+      contrastText: '#ffffff',
+    },
+    secondary: {
+      main: '#b100d4',
+      light: '#d147f1',
+      dark: '#7a0094',
+      contrastText: '#ffffff',
+    },
+    error: {
+      main: '#ec3d5d',
+      light: '#f06e84',
+      dark: '#d41a41',
+    },
+    warning: {
+      main: '#ffc107',
+      light: '#ffcd38',
+      dark: '#c79100',
+    },
+    info: {
+      main: '#03dac6',
+      light: '#35e4d2',
+      dark: '#02988a',
+    },
+    success: {
+      main: '#4caf50',
+      light: '#6fbf73',
+      dark: '#357a38',
+    },
+    background: {
+      default: '#f5f5f5',
+      paper: '#ffffff',
+    },
+    text: {
+      primary: 'rgba(0, 0, 0, 0.87)',
+      secondary: 'rgba(0, 0, 0, 0.6)',
+      disabled: 'rgba(0, 0, 0, 0.38)',
+    },
+  },
+  typography: {
+    fontFamily: roboto.style.fontFamily,
+    h1: {
+      fontSize: '3rem',
+      fontWeight: 700,
+      lineHeight: 1.2,
+    },
+    h2: {
+      fontSize: '2.5rem',
+      fontWeight: 700,
+      lineHeight: 1.3,
+    },
+    h3: {
+      fontSize: '2rem',
+      fontWeight: 600,
+      lineHeight: 1.4,
+    },
+    h4: {
+      fontSize: '1.5rem',
+      fontWeight: 600,
+      lineHeight: 1.4,
+    },
+    h5: {
+      fontSize: '1.25rem',
+      fontWeight: 500,
+      lineHeight: 1.5,
+    },
+    h6: {
+      fontSize: '1rem',
+      fontWeight: 500,
+      lineHeight: 1.6,
+    },
+    body1: {
+      fontSize: '1rem',
+      lineHeight: 1.6,
+    },
+    body2: {
+      fontSize: '0.875rem',
+      lineHeight: 1.6,
+    },
+    button: {
+      textTransform: 'none',
+      fontWeight: 500,
+    },
+  },
+  shape: {
+    borderRadius: 8,
+  },
+  spacing: 8,
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          padding: '10px 24px',
+          fontSize: '1rem',
+        },
+        contained: {
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          },
+        },
+        outlined: {
+          borderWidth: 2,
+          '&:hover': {
+            borderWidth: 2,
+          },
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+        },
+      },
+    },
+  },
+}
+
+export const theme = createTheme(themeOptions)
+
+// Dark theme (para futuro)
+export const darkTheme = createTheme({
+  ...themeOptions,
+  palette: {
+    ...themeOptions.palette,
+    mode: 'dark',
+    background: {
+      default: '#1a1a1a',
+      paper: '#242424',
+    },
+    text: {
+      primary: '#ffffff',
+      secondary: 'rgba(255, 255, 255, 0.7)',
+      disabled: 'rgba(255, 255, 255, 0.5)',
+    },
+  },
+})
