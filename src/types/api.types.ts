@@ -43,6 +43,20 @@ export interface Testimonial {
   rating?: number
 }
 
+// Data Deletion
+export interface DataDeletionRequest {
+  id?: string
+  name: string
+  email: string
+  phone?: string
+  userId?: string
+  reason?: string
+  confirmTerms: boolean
+  status?: 'PENDING' | 'PROCESSING' | 'COMPLETED'
+  createdAt?: string
+  updatedAt?: string
+}
+
 // Error response
 export interface ErrorResponse {
   error: string
