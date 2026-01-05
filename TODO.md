@@ -6,33 +6,33 @@
 
 ## 🔴 PRIORIDAD CRÍTICA (Para Google Play Store)
 
-### ✅ Completado
+### ✅ Completado (5 de enero de 2026)
 - [x] Migrar proyecto a Next.js 15
 - [x] Migrar componentes de landing page
 - [x] Configurar Material-UI y providers
 - [x] Implementar Header y Footer
 - [x] Crear página Home completa
+- [x] **Implementar página Privacy Policy** ✅
+- [x] **Implementar página Data Deletion Request** ✅
+- [x] **Crear formulario con validación Zod** ✅
+- [x] **Integrar con backend API** ✅
+- [x] **Deploy en Vercel** ✅
+  - **URL Producción:** https://control-web-khaki.vercel.app
+  - **Privacy Policy:** https://control-web-khaki.vercel.app/privacy-policy
+  - **Data Deletion:** https://control-web-khaki.vercel.app/data-deletion
 
-### 🚨 EN PROGRESO (URGENTE)
-- [ ] **Implementar página de Data Deletion Request** ⚠️
-  - [ ] Crear formulario de solicitud de eliminación
-  - [ ] Integrar con backend (endpoint POST /api/v1/public/data-deletion)
-  - [ ] Validación con Zod
-  - [ ] Confirmación por email
-  - [ ] Página de confirmación
-
-- [ ] **Crear Privacy Policy completa** ⚠️
-  - [ ] Qué datos recopilamos
-  - [ ] Cómo usamos los datos
-  - [ ] Derechos del usuario (GDPR)
-  - [ ] Proceso de eliminación de datos
-  - [ ] Contacto para privacidad
-
-- [ ] **Deploy a Vercel** ⚠️
-  - [ ] Configurar variables de entorno
-  - [ ] Conectar repositorio
-  - [ ] Configurar dominio (opcional)
-  - [ ] Obtener URL pública para Google Play
+### ⚠️ PENDIENTE (Backend y Google Play)
+- [ ] **Implementar endpoint en backend** (Spring Boot)
+  - [ ] POST `/api/v1/public/data-deletion-request`
+  - [ ] Configurar CORS para `https://control-web-khaki.vercel.app`
+  - [ ] Configurar servicio de emails (SMTP)
+  - [ ] Entity `DataDeletionRequest` (opcional pero recomendado)
+  
+- [ ] **Actualizar Google Play Console**
+  - [ ] Agregar Privacy Policy URL
+  - [ ] Agregar Data Deletion URL
+  - [ ] Enviar app para revisión
+  - [ ] Esperar aprobación (1-3 días)
 
 ---
 

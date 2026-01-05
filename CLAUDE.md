@@ -454,6 +454,9 @@ vercel --prod   # Deploy a production
 - Página Home básica
 - API client y services
 - Path aliases y configuraciones
+- **Privacy Policy page** (GDPR compliant)
+- **Data Deletion Request page** (con formulario)
+- **Deploy en Vercel** (https://control-web-khaki.vercel.app)
 
 ### 🔄 En Progreso
 - Migrar secciones landing del proyecto Vite
@@ -464,6 +467,8 @@ vercel --prod   # Deploy a production
 - SEO optimization (sitemap, structured data)
 - Integración completa con backend API
 - Performance audit (Lighthouse >90)
+- **Backend endpoint para data deletion**
+- **Actualización de Google Play Console**
 
 ---
 
