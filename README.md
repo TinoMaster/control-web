@@ -262,10 +262,9 @@ export function useFAQ() {
 
 ## 📚 Documentación Relacionada
 
-- **Ecosistema completo**: `../CLAUDE.md`
-- **Plan de arquitectura**: `../control-application-react18/ARCHITECTURE_PLAN.md`
-- **Backend API**: `../virtual_dream_spring_boot/CLAUDE.md`
-- **Mobile App**: `../control_native/CLAUDE.md`
+- **Ecosistema completo**: `../AGENTS.md`
+- **Backend API**: `../virtual_dream_spring_boot/AGENTS.md`
+- **Mobile App**: `../control_native/AGENTS.md`
 
 ---
 
@@ -293,7 +292,7 @@ vercel
 
 Este es un proyecto interno. Para cambios:
 
-1. Leer `CLAUDE.md` del ecosistema
+1. Leer `AGENTS.md` del ecosistema
 2. Seguir convenciones de código
 3. Probar localmente antes de commit
 4. Actualizar documentación si es necesario

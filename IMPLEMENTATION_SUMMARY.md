@@ -408,7 +408,7 @@ Si encuentras problemas:
 1. **TODO.md** - Todas las tareas del proyecto
 2. **PLAN_DATA_DELETION.md** - Plan detallado de implementación
 3. **DEPLOYMENT.md** - Guía de deployment en Vercel
-4. **CLAUDE.md** - Documentación para desarrollo
+4. **AGENTS.md** - Documentación para desarrollo
 5. **README.md** - Información general del proyecto
 
 ---
