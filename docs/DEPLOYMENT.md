@@ -4,6 +4,17 @@ Esta guía describe cómo desplegar el proyecto Control Web en Vercel para obten
 
 ---
 
+## Checklist Rápido (Pre-deploy)
+
+- [ ] Página `/privacy-policy` existe y funciona localmente
+- [ ] Página `/data-deletion` existe y funciona localmente
+- [ ] Schema Zod de validación implementado
+- [ ] TypeScript sin errores (`pnpm type-check`)
+- [ ] Build local exitoso (`pnpm build`)
+- [ ] Logueado en Vercel CLI (`vercel whoami`)
+
+---
+
 ## Prerrequisitos
 
 - Cuenta en [Vercel](https://vercel.com) (gratis)
@@ -381,6 +392,6 @@ Antes de enviar a Google Play:
 
 ---
 
-**Estado:** Listo para deployment
-**Fecha:** 2026-01-05
-**Próximo paso:** Ejecutar deployment en Vercel
+**Estado:** Desplegado en producción  
+**Fecha:** 2026-04-05  
+**URL producción:** https://control-web-khaki.vercel.app

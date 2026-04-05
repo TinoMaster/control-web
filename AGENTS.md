@@ -59,6 +59,22 @@ pnpm type-check   # TypeScript check
 
 ---
 
+## Documentation & Context Files
+
+```
+control-web/
+├── AGENTS.md          # This file — AI agent context
+├── README.md          # Project overview and roadmap
+└── docs/              # Deployment, operational docs and pending work
+    ├── PENDING.md     # Pending work backlog (audited 2026-04-05)
+    └── DEPLOYMENT.md  # Full Vercel deployment guide (step-by-step)
+```
+
+Before making infrastructure or deployment changes, read `docs/DEPLOYMENT.md`.  
+For pending work and backlog, see `docs/PENDING.md`.
+
+---
+
 ## Architecture
 
 ### Path Aliases
@@ -82,26 +98,56 @@ pnpm type-check   # TypeScript check
 app/
 ├── (marketing)/       # Route group with Header + Footer layout
 │   ├── layout.tsx     # Layout with Header + Footer
-│   ├── features/      # Defined, unimplemented
-│   ├── pricing/       # Defined, unimplemented
-│   └── about/         # Defined, unimplemented
-├── home/              # Landing page (Hero, Features, Stats, Testimonials, Pricing, CTA)
-├── privacy-policy/    # GDPR privacy policy
-├── data-deletion/     # Data deletion request form
-├── help-center/       # Scaffolded (empty)
-│   ├── faq/
-│   └── [slug]/
-├── not-found.tsx      # Custom 404
-└── layout.tsx         # Root layout (providers, metadata)
+│   ├── features/      # SCAFFOLDED — no page.tsx yet
+│   ├── pricing/       # SCAFFOLDED — no page.tsx yet
+│   ├── contact/       # SCAFFOLDED — no page.tsx yet
+│   └── about/         # SCAFFOLDED — no page.tsx yet
+├── home/              # ✅ Landing page (Hero, Features, Stats, Testimonials, Pricing, CTA)
+├── privacy-policy/    # ✅ GDPR privacy policy (14 sections)
+├── data-deletion/     # ✅ Data deletion form (Zod + API integration)
+├── help-center/       # SCAFFOLDED — no page.tsx yet
+│   ├── faq/           # SCAFFOLDED — empty
+│   └── [slug]/        # SCAFFOLDED — empty
+├── not-found.tsx      # ✅ Custom 404
+└── layout.tsx         # ✅ Root layout (providers, metadata, SEO base)
 ```
 
 Root `/` redirects to `/home` (configured in `next.config.ts`).
 
-### Implementation Status
+### Implementation Status (Verified 2026-04-05)
 
-**Implemented**: Home/Landing, Privacy Policy, Data Deletion, Deploy on Vercel
-**Scaffolded (empty)**: Help Center, FAQ
-**Defined but unimplemented**: Features, Pricing, About, Contact
+**Implemented** (working, deployed):
+- Home/Landing page — all 6 sections (Hero, Features, Stats, Testimonials, Pricing, CTA)
+- Privacy Policy — full GDPR-compliant page
+- Data Deletion — form with Zod validation + API service
+- API services — `faq.service.ts`, `contact.service.ts`, `dataDeletion.service.ts`
+- React Query hooks — `useFAQ`, `useFAQByCategory`
+- Static data files — features, navigation, pricing, stats, testimonials
+- SEO base metadata — OpenGraph, Twitter Cards, robots config in root layout
+- Header, Footer, marketing layout
+
+**Scaffolded (folders exist, NO `page.tsx`)**:
+- `(marketing)/features/`, `(marketing)/pricing/`, `(marketing)/contact/`, `(marketing)/about/`
+- `help-center/faq/`, `help-center/[slug]/`
+
+**Empty (folder exists, no files)**:
+- `components/help-center/` — no components
+- `components/ui/` — no components
+- `content/help-center/` — no markdown articles
+
+**NOT implemented (backend blockers)**:
+- `POST /api/v1/public/data-deletion-request` — endpoint does not exist in Spring Boot
+- `GET /api/v1/public/faq` — endpoint does not exist in Spring Boot
+- `POST /api/v1/public/contact` — endpoint does not exist in Spring Boot
+- `GET /api/v1/public/testimonials` — endpoint does not exist in Spring Boot
+
+**NOT implemented (frontend)**:
+- `app/sitemap.ts` — does not exist
+- `app/robots.ts` — does not exist
+- Structured Data (JSON-LD) — not added
+- `lib/schemas/contact.schema.ts` — not created
+- `lib/hooks/useContact.ts` — not created
+- Error boundary — not implemented
 
 ---
 
@@ -229,6 +275,8 @@ export function useFAQ() {
 - **Deploy**: `vercel --prod`
 - Environment variables configured in Vercel dashboard
 
+For detailed deployment instructions, see `docs/DEPLOYMENT.md`.
+
 ---
 
 ## Related Projects
@@ -241,4 +289,4 @@ export function useFAQ() {
 
 ---
 
-**Last Updated:** 2026-03-21
+**Last Updated:** 2026-04-05
