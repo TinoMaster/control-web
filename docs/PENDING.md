@@ -61,7 +61,7 @@ Hasta que no existan, los formularios no pueden enviar datos reales.
 
 ## 🟢 PRIORIDAD BAJA
 
-- [ ] **Animaciones** — Framer Motion (page transitions, scroll animations)
+- [x] **Animaciones** — Framer Motion (page transitions, scroll animations) — `src/lib/animations.ts`, `src/components/ui/AnimatedElements.tsx`; all marketing + help-center pages animated
 - [ ] **Accesibilidad (a11y)** — ARIA labels, keyboard navigation, WCAG 2.1 AA
 - [ ] **Google Analytics 4** — Setup + event tracking
 - [ ] **Testing** — Unit tests (vitest/jest), E2E con Playwright
