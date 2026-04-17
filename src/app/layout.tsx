@@ -1,13 +1,23 @@
 import type { Metadata } from 'next'
-import { Roboto } from 'next/font/google'
+import { Space_Grotesk, DM_Sans } from 'next/font/google'
 import './globals.css'
 import { Providers } from '@/lib/providers'
+import JsonLd from '@/components/JsonLd'
+import { Header } from '@/components/layout/Header'
+import { Footer } from '@/components/layout/Footer'
 
-const roboto = Roboto({
-  weight: ['300', '400', '500', '700'],
+const spaceGrotesk = Space_Grotesk({
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-roboto',
+  variable: '--font-space-grotesk',
+})
+
+const dmSans = DM_Sans({
+  weight: ['300', '400', '500', '600'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-dm-sans',
 })
 
 export const metadata: Metadata = {
@@ -67,9 +77,38 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    // Agregar después cuando tengas los códigos de verificación
-    // google: 'google-site-verification-code',
+}
+
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://control-web-khaki.vercel.app'
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Control',
+  url: BASE_URL,
+  logo: `${BASE_URL}/images/logo.png`,
+  description:
+    'Sistema de gestión empresarial móvil para pequeñas y medianas empresas. Ventas, inventario, empleados y reportes desde tu teléfono.',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer support',
+    url: `${BASE_URL}/contact`,
+  },
+  sameAs: [],
+}
+
+const softwareApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Control',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Android, iOS',
+  description:
+    'Gestiona tu negocio completo desde tu móvil: ventas, inventario, empleados, reportes financieros y más.',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
   },
 }
 
@@ -79,9 +118,18 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className={roboto.variable}>
-      <body className={roboto.className}>
-        <Providers>{children}</Providers>
+    <html
+      lang="es"
+      className={`${spaceGrotesk.variable} ${dmSans.variable}`}
+    >
+      <body className={dmSans.className}>
+        <JsonLd data={organizationSchema} />
+        <JsonLd data={softwareApplicationSchema} />
+        <Providers>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   )

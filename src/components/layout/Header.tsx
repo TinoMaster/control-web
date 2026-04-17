@@ -2,135 +2,167 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Box, Container, Drawer, IconButton, MenuItem } from '@mui/material'
+import { usePathname } from 'next/navigation'
+import {
+  Box,
+  Container,
+  Drawer,
+  IconButton,
+  Button,
+  Divider,
+  Typography,
+} from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded'
+import CloseIcon from '@mui/icons-material/Close'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { NAV_LINKS, APP_INFO } from '@/data/navigation'
 import { ROUTES } from '@/lib/constants/routes'
+import { BRAND } from '@/styles/theme'
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-
-    window.addEventListener('scroll', handleScroll)
+    const handleScroll = () => setIsScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const toggleDrawer = () => {
-    setDrawerOpen((prev) => !prev)
-  }
+  const toggleDrawer = () => setDrawerOpen((prev) => !prev)
 
-  const drawerContent = () => (
-    <Box
-      sx={{
-        background: 'linear-gradient(to bottom, #1a1a1a, #0d0d0d, #000000)',
-        minHeight: '100vh',
-      }}
-    >
-      <Box
-        sx={{
-          color: 'white',
-          display: 'flex',
-          justifyContent: 'space-between',
-          padding: '0.8rem',
-          alignItems: 'center',
-          backgroundColor: '#1a1a1a',
-        }}
-      >
-        <Box
-          component={Link}
-          href={ROUTES.HOME}
-          onClick={toggleDrawer}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 1,
-            textDecoration: 'none',
-            color: 'white',
-          }}
-        >
-          <Box
-            sx={{
-              width: 32,
-              height: 32,
-              borderRadius: '50%',
-              bgcolor: 'primary.main',
-            }}
-          />
-          <Box
-            sx={{
-              fontSize: '1.25rem',
-              fontWeight: 700,
-              color: 'primary.light',
-            }}
-          >
-            {APP_INFO.NAME}
-          </Box>
-        </Box>
-
-        <IconButton
-          onClick={toggleDrawer}
-          aria-label="Cerrar menú"
-          sx={{ color: 'white' }}
-        >
-          <MenuOpenRoundedIcon fontSize="large" />
-        </IconButton>
-      </Box>
-
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          color: 'white',
-          my: 2,
-        }}
-      >
-        {NAV_LINKS.map((link) => (
-          <MenuItem
-            component={Link}
-            href={link.path}
-            key={link.name}
-            onClick={toggleDrawer}
-            sx={{
-              color: 'white',
-              width: '100%',
-              justifyContent: 'center',
-              py: 1.5,
-              fontSize: '1.1rem',
-              '&:hover': {
-                bgcolor: 'rgba(0, 171, 194, 0.1)',
-                color: 'primary.light',
-              },
-            }}
-          >
-            {link.label}
-          </MenuItem>
-        ))}
-      </Box>
-    </Box>
-  )
+  const isActive = (path: string) => pathname === path
 
   return (
     <>
+      {/* Mobile Drawer */}
       <Drawer
-        anchor="top"
+        anchor="right"
         open={drawerOpen}
         onClose={toggleDrawer}
-        sx={{
-          '& .MuiDrawer-paper': {
-            backgroundImage: 'none',
+        PaperProps={{
+          sx: {
+            width: '100%',
+            maxWidth: 320,
+            background: BRAND.bg1,
+            borderLeft: `1px solid ${BRAND.glassBorder}`,
           },
         }}
       >
-        {drawerContent()}
+        <Box sx={{ p: 3 }}>
+          {/* Drawer Header */}
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              mb: 4,
+            }}
+          >
+            <Box
+              component={Link}
+              href={ROUTES.HOME}
+              onClick={toggleDrawer}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1.5,
+                textDecoration: 'none',
+              }}
+            >
+              <Box
+                sx={{
+                  width: 34,
+                  height: 34,
+                  borderRadius: '8px',
+                  background: BRAND.gradPrimary,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  color: BRAND.bg0,
+                  fontFamily: 'var(--font-space-grotesk)',
+                }}
+              >
+                C
+              </Box>
+              <Typography
+                sx={{
+                  fontFamily: 'var(--font-space-grotesk)',
+                  fontWeight: 700,
+                  fontSize: '1.25rem',
+                  color: BRAND.textPrimary,
+                }}
+              >
+                {APP_INFO.NAME}
+              </Typography>
+            </Box>
+
+            <IconButton
+              onClick={toggleDrawer}
+              sx={{
+                color: BRAND.textMuted,
+                '&:hover': { color: BRAND.textPrimary, background: BRAND.glass },
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </Box>
+
+          <Divider sx={{ mb: 3, borderColor: BRAND.glassBorder }} />
+
+          {/* Nav Links */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, mb: 4 }}>
+            {NAV_LINKS.map((link) => (
+              <Box
+                key={link.name}
+                component={Link}
+                href={link.path}
+                onClick={toggleDrawer}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  px: 2,
+                  py: 1.5,
+                  borderRadius: 2,
+                  textDecoration: 'none',
+                  color: isActive(link.path) ? BRAND.cyan : BRAND.textSecondary,
+                  background: isActive(link.path) ? `${BRAND.cyan}11` : 'transparent',
+                  fontFamily: 'var(--font-space-grotesk)',
+                  fontWeight: 500,
+                  fontSize: '1rem',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    color: BRAND.textPrimary,
+                    background: BRAND.glass,
+                  },
+                }}
+              >
+                {link.name}
+                {isActive(link.path) && (
+                  <ArrowForwardIcon sx={{ fontSize: 14, color: BRAND.cyan }} />
+                )}
+              </Box>
+            ))}
+          </Box>
+
+          <Button
+            variant="contained"
+            fullWidth
+            component={Link}
+            href={ROUTES.PRICING}
+            onClick={toggleDrawer}
+            sx={{ py: 1.5 }}
+          >
+            Comenzar Gratis
+          </Button>
+        </Box>
       </Drawer>
 
+      {/* Main Header */}
       <Box
         component="header"
         sx={{
@@ -138,9 +170,9 @@ export function Header() {
           top: 0,
           left: 0,
           right: 0,
-          zIndex: 1000,
+          zIndex: 1100,
+          py: { xs: 1.5, md: 2 },
           transition: 'all 0.3s ease',
-          py: { xs: 1, md: 1.5 },
         }}
       >
         <Container maxWidth="xl">
@@ -149,16 +181,18 @@ export function Header() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              px: { xs: 2, md: 4 },
-              py: { xs: 1, md: 1.5 },
-              borderRadius: 2,
-              backgroundColor: isScrolled
-                ? 'rgba(2, 116, 131, 0.95)'
-                : 'rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(10px)',
+              px: { xs: 2.5, md: 4 },
+              py: { xs: 1.25, md: 1.5 },
+              borderRadius: 3,
+              background: isScrolled
+                ? `${BRAND.bg1}f0`
+                : `${BRAND.bg0}80`,
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: `1px solid ${isScrolled ? BRAND.glassBorder : 'transparent'}`,
               boxShadow: isScrolled
-                ? '0 4px 20px rgba(0, 0, 0, 0.2)'
-                : '0 2px 10px rgba(0, 0, 0, 0.1)',
+                ? `0 8px 40px rgba(0, 0, 0, 0.4), 0 1px 0 ${BRAND.glassBorder}`
+                : 'none',
               transition: 'all 0.3s ease',
             }}
           >
@@ -169,37 +203,51 @@ export function Header() {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 1,
+                gap: 1.5,
                 textDecoration: 'none',
-                color: 'white',
+                flexShrink: 0,
               }}
             >
               <Box
                 sx={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: '50%',
-                  bgcolor: isScrolled ? 'white' : 'primary.light',
-                }}
-              />
-              <Box
-                sx={{
-                  fontSize: '1.5rem',
+                  width: 36,
+                  height: 36,
+                  borderRadius: '9px',
+                  background: BRAND.gradPrimary,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1.1rem',
                   fontWeight: 700,
-                  color: 'white',
+                  color: BRAND.bg0,
+                  fontFamily: 'var(--font-space-grotesk)',
+                  flexShrink: 0,
+                  boxShadow: `0 4px 16px ${BRAND.cyanGlow}`,
+                }}
+              >
+                C
+              </Box>
+              <Typography
+                sx={{
+                  fontFamily: 'var(--font-space-grotesk)',
+                  fontWeight: 700,
+                  fontSize: '1.375rem',
+                  color: BRAND.textPrimary,
+                  letterSpacing: '-0.02em',
                   display: { xs: 'none', sm: 'block' },
                 }}
               >
                 {APP_INFO.NAME}
-              </Box>
+              </Typography>
             </Box>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Nav */}
             <Box
+              component="nav"
               sx={{
                 display: { xs: 'none', md: 'flex' },
                 alignItems: 'center',
-                gap: 4,
+                gap: 0.5,
               }}
             >
               {NAV_LINKS.map((link) => (
@@ -208,51 +256,77 @@ export function Header() {
                   component={Link}
                   href={link.path}
                   sx={{
-                    color: 'white',
+                    px: 2,
+                    py: 1,
+                    borderRadius: 2,
                     textDecoration: 'none',
-                    fontSize: '1rem',
+                    fontFamily: 'var(--font-space-grotesk)',
                     fontWeight: 500,
+                    fontSize: '0.9375rem',
+                    color: isActive(link.path) ? BRAND.cyan : BRAND.textSecondary,
+                    background: isActive(link.path) ? `${BRAND.cyan}11` : 'transparent',
+                    transition: 'all 0.2s ease',
                     position: 'relative',
                     '&:hover': {
-                      color: isScrolled ? 'primary.light' : 'primary.light',
-                    },
-                    '&::after': {
-                      content: '""',
-                      position: 'absolute',
-                      bottom: -4,
-                      left: 0,
-                      width: '0%',
-                      height: 2,
-                      bgcolor: isScrolled ? 'white' : 'primary.light',
-                      transition: 'width 0.3s ease',
-                    },
-                    '&:hover::after': {
-                      width: '100%',
+                      color: BRAND.textPrimary,
+                      background: BRAND.glass,
                     },
                   }}
                 >
                   {link.name}
+                  {isActive(link.path) && (
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        bottom: -2,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: 16,
+                        height: 2,
+                        borderRadius: 1,
+                        background: BRAND.gradPrimary,
+                      }}
+                    />
+                  )}
                 </Box>
               ))}
             </Box>
 
-            {/* Mobile Menu Button */}
-            <IconButton
-              onClick={toggleDrawer}
-              aria-label="Abrir menú"
-              sx={{
-                display: { xs: 'flex', md: 'none' },
-                color: 'white',
-              }}
-            >
-              <MenuIcon fontSize="large" />
-            </IconButton>
+            {/* CTA + Mobile menu */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+              <Button
+                variant="contained"
+                size="small"
+                component={Link}
+                href={ROUTES.PRICING}
+                sx={{
+                  display: { xs: 'none', md: 'flex' },
+                  px: 2.5,
+                  py: 1,
+                  fontSize: '0.875rem',
+                }}
+              >
+                Comenzar Gratis
+              </Button>
+
+              <IconButton
+                onClick={toggleDrawer}
+                sx={{
+                  display: { xs: 'flex', md: 'none' },
+                  color: BRAND.textSecondary,
+                  '&:hover': { color: BRAND.textPrimary },
+                }}
+                aria-label="Abrir menú"
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
           </Box>
         </Container>
       </Box>
 
-      {/* Spacer para evitar que el contenido quede debajo del header */}
-      <Box sx={{ height: { xs: 70, md: 80 } }} />
+      {/* Header spacer */}
+      <Box sx={{ height: { xs: 72, md: 84 } }} />
     </>
   )
 }

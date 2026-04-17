@@ -5,8 +5,6 @@ import {
   Container,
   Typography,
   Grid,
-  Card,
-  CardContent,
   Button,
   List,
   ListItem,
@@ -14,109 +12,155 @@ import {
   ListItemText,
   Chip,
 } from '@mui/material'
-import { Check, Star } from '@mui/icons-material'
+import { Check, CheckCircle } from '@mui/icons-material'
 import Link from 'next/link'
 import { PRICING_PLANS } from '@/data/pricing'
 import { ROUTES } from '@/lib/constants/routes'
+import { BRAND } from '@/styles/theme'
+import { motion } from 'framer-motion'
+
+const MotionBox = motion(Box)
 
 export function PricingSection() {
   return (
     <Box
       sx={{
-        py: { xs: 8, md: 12 },
-        background: 'linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%)',
+        py: { xs: 10, md: 16 },
+        background: `linear-gradient(180deg, ${BRAND.bg1} 0%, ${BRAND.bg0} 100%)`,
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
-      <Container maxWidth="lg">
-        <Box textAlign="center" mb={8}>
+      {/* Background accent */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '20%',
+          right: '-10%',
+          width: '50%',
+          height: '60%',
+          background: `radial-gradient(ellipse, ${BRAND.cyanGlow} 0%, transparent 70%)`,
+          opacity: 0.2,
+          pointerEvents: 'none',
+        }}
+      />
+
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        {/* Header */}
+        <Box sx={{ textAlign: 'center', mb: { xs: 8, md: 10 } }}>
+          <Typography
+            variant="overline"
+            sx={{ color: BRAND.cyan, display: 'block', mb: 2, letterSpacing: '0.14em' }}
+          >
+            Precios
+          </Typography>
           <Typography
             variant="h2"
             sx={{
               fontSize: { xs: '2rem', md: '2.75rem' },
               fontWeight: 700,
-              color: 'white',
+              color: BRAND.textPrimary,
+              letterSpacing: '-0.03em',
               mb: 2,
             }}
           >
-            Planes que se adaptan a
-            <Box component="span" sx={{ color: '#00abc2' }}>
-              {' '}
-              tu negocio
-            </Box>
+            Planes para{' '}
+            <span className="gradient-text-cyan">cada negocio</span>
           </Typography>
           <Typography
-            variant="h6"
-            sx={{
-              color: 'rgba(255, 255, 255, 0.7)',
-              maxWidth: '600px',
-              margin: '0 auto',
-              lineHeight: 1.6,
-            }}
+            variant="body1"
+            sx={{ color: BRAND.textSecondary, maxWidth: 480, mx: 'auto' }}
           >
-            Comienza gratis y crece con nosotros. Sin compromisos, sin sorpresas.
+            Comienza gratis y escala cuando lo necesites. Sin compromisos, sin sorpresas.
           </Typography>
         </Box>
 
-        <Grid container spacing={4} justifyContent="center">
+        <Grid container spacing={3} alignItems="stretch">
           {PRICING_PLANS.map((plan, index) => (
             <Grid item xs={12} md={4} key={index}>
-              <Card
+              <MotionBox
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
                 sx={{
                   height: '100%',
-                  position: 'relative',
-                  background: plan.popular
-                    ? 'linear-gradient(145deg, rgba(2, 116, 131, 0.1), rgba(0, 171, 194, 0.05))'
-                    : 'linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
-                  backdropFilter: 'blur(20px)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  background: plan.popular ? `${BRAND.bg2}` : BRAND.bg2,
                   border: plan.popular
-                    ? '2px solid #027483'
-                    : '1px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: 3,
+                    ? `2px solid ${BRAND.cyan}`
+                    : `1px solid ${BRAND.glassBorder}`,
+                  borderRadius: '20px',
+                  p: { xs: 3.5, md: 4 },
+                  position: 'relative',
+                  overflow: 'visible',
+                  boxShadow: plan.popular
+                    ? `0 0 60px ${BRAND.cyanGlow}, 0 24px 48px rgba(0,0,0,0.3)`
+                    : 'none',
                   transition: 'all 0.3s ease',
                   '&:hover': {
-                    transform: 'translateY(-8px)',
+                    borderColor: plan.popular ? BRAND.cyan : `${BRAND.cyan}44`,
                     boxShadow: plan.popular
-                      ? '0 20px 40px rgba(2, 116, 131, 0.3)'
-                      : '0 20px 40px rgba(0, 0, 0, 0.3)',
+                      ? `0 0 80px ${BRAND.cyanGlow}, 0 32px 64px rgba(0,0,0,0.4)`
+                      : `0 20px 50px rgba(0,0,0,0.3)`,
+                    transform: 'translateY(-4px)',
                   },
+                  ...(plan.popular && {
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      inset: -2,
+                      borderRadius: '22px',
+                      background: `linear-gradient(135deg, ${BRAND.cyan}33, transparent 50%, ${BRAND.cyanDark}22)`,
+                      zIndex: -1,
+                    },
+                  }),
                 }}
               >
+                {/* Popular badge */}
                 {plan.popular && (
                   <Chip
-                    label="Más Popular"
-                    icon={<Star />}
+                    label="✦ Más Popular"
                     sx={{
                       position: 'absolute',
-                      top: -12,
+                      top: -14,
                       left: '50%',
                       transform: 'translateX(-50%)',
-                      background: 'linear-gradient(45deg, #027483, #00abc2)',
-                      color: 'white',
-                      fontWeight: 600,
+                      background: BRAND.gradPrimary,
+                      color: BRAND.bg0,
+                      fontWeight: 700,
+                      fontSize: '0.75rem',
+                      height: 28,
+                      letterSpacing: '0.04em',
+                      '& .MuiChip-label': { px: 2 },
                     }}
                   />
                 )}
 
-                <CardContent sx={{ p: 4, textAlign: 'center' }}>
+                {/* Plan header */}
+                <Box sx={{ mb: 3 }}>
                   <Typography
-                    variant="h5"
+                    variant="overline"
                     sx={{
-                      fontWeight: 600,
-                      color: 'white',
+                      color: plan.popular ? BRAND.cyan : BRAND.textMuted,
+                      letterSpacing: '0.1em',
+                      display: 'block',
                       mb: 1,
                     }}
                   >
                     {plan.name}
                   </Typography>
 
-                  <Box sx={{ mb: 3 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.75, mb: 1 }}>
                     <Typography
-                      variant="h3"
                       sx={{
-                        fontSize: '3rem',
+                        fontFamily: 'var(--font-space-grotesk)',
+                        fontSize: plan.price === 'Gratis' ? '2.25rem' : '3rem',
                         fontWeight: 700,
-                        color: plan.popular ? '#00abc2' : 'white',
-                        display: 'inline',
+                        color: plan.popular ? BRAND.cyan : BRAND.textPrimary,
+                        letterSpacing: '-0.04em',
+                        lineHeight: 1,
                       }}
                     >
                       {plan.price}
@@ -124,11 +168,7 @@ export function PricingSection() {
                     {plan.price !== 'Gratis' && (
                       <Typography
                         variant="body2"
-                        sx={{
-                          color: 'rgba(255, 255, 255, 0.7)',
-                          ml: 1,
-                          display: 'inline',
-                        }}
+                        sx={{ color: BRAND.textMuted }}
                       >
                         {plan.period}
                       </Typography>
@@ -136,91 +176,72 @@ export function PricingSection() {
                   </Box>
 
                   <Typography
-                    variant="body1"
-                    sx={{
-                      color: 'rgba(255, 255, 255, 0.8)',
-                      mb: 4,
-                      minHeight: '48px',
-                    }}
+                    variant="body2"
+                    sx={{ color: BRAND.textMuted, lineHeight: 1.6 }}
                   >
                     {plan.description}
                   </Typography>
+                </Box>
 
-                  <Button
-                    variant={plan.buttonVariant}
-                    fullWidth
-                    size="large"
-                    component={Link}
-                    href={ROUTES.HOME} // Cambiar cuando exista ruta de registro
-                    sx={{
-                      py: 1.5,
-                      mb: 4,
-                      ...(plan.buttonVariant === 'contained' && {
-                        background: 'linear-gradient(45deg, #027483, #00abc2)',
-                        boxShadow: '0 8px 24px rgba(2, 116, 131, 0.3)',
-                      }),
-                      ...(plan.buttonVariant === 'outlined' && {
-                        borderColor: 'rgba(255, 255, 255, 0.3)',
-                        color: 'rgba(255, 255, 255, 0.9)',
-                        '&:hover': {
-                          borderColor: '#027483',
-                          backgroundColor: 'rgba(2, 116, 131, 0.1)',
-                        },
-                      }),
-                    }}
-                  >
-                    {plan.buttonText}
-                  </Button>
+                {/* CTA Button */}
+                <Button
+                  variant={plan.popular ? 'contained' : 'outlined'}
+                  fullWidth
+                  size="large"
+                  component={Link}
+                  href={ROUTES.PRICING}
+                  sx={{
+                    py: 1.5,
+                    mb: 3.5,
+                    fontSize: '0.9375rem',
+                  }}
+                >
+                  {plan.buttonText}
+                </Button>
 
-                  <List sx={{ textAlign: 'left' }}>
-                    {plan.features.map((feature, featureIndex) => (
-                      <ListItem key={featureIndex} sx={{ py: 0.5, px: 0 }}>
-                        <ListItemIcon sx={{ minWidth: 36 }}>
-                          <Check
-                            sx={{
-                              color: plan.popular ? '#00abc2' : '#4CAF50',
-                              fontSize: 20,
-                            }}
-                          />
-                        </ListItemIcon>
-                        <ListItemText
-                          primary={feature}
-                          primaryTypographyProps={{
-                            color: 'rgba(255, 255, 255, 0.9)',
-                            fontSize: '0.9rem',
+                {/* Features */}
+                <List sx={{ p: 0, flexGrow: 1 }}>
+                  {plan.features.map((feature, fi) => (
+                    <ListItem key={fi} sx={{ py: 0.75, px: 0 }}>
+                      <ListItemIcon sx={{ minWidth: 30 }}>
+                        <CheckCircle
+                          sx={{
+                            fontSize: 16,
+                            color: plan.popular ? BRAND.cyan : '#34d399',
                           }}
                         />
-                      </ListItem>
-                    ))}
-                  </List>
-                </CardContent>
-              </Card>
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={feature}
+                        primaryTypographyProps={{
+                          sx: {
+                            color: BRAND.textSecondary,
+                            fontSize: '0.875rem',
+                            lineHeight: 1.5,
+                          },
+                        }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </MotionBox>
             </Grid>
           ))}
         </Grid>
 
-        <Box textAlign="center" mt={6}>
-          <Typography
-            variant="body1"
-            sx={{
-              color: 'rgba(255, 255, 255, 0.7)',
-              mb: 2,
-            }}
-          >
-            ¿Necesitas algo más específico?
+        {/* Bottom note */}
+        <Box sx={{ textAlign: 'center', mt: 6 }}>
+          <Typography variant="body2" sx={{ color: BRAND.textMuted, mb: 1.5 }}>
+            ¿Necesitas algo más específico para tu empresa?
           </Typography>
           <Button
+            variant="text"
             component={Link}
             href={ROUTES.CONTACT}
-            variant="text"
-            sx={{
-              color: '#00abc2',
-              '&:hover': {
-                backgroundColor: 'rgba(0, 171, 194, 0.1)',
-              },
-            }}
+            endIcon={<Check sx={{ fontSize: 14 }} />}
+            sx={{ color: BRAND.cyan, fontSize: '0.9375rem' }}
           >
-            Contacta con nuestro equipo de ventas
+            Habla con nuestro equipo
           </Button>
         </Box>
       </Container>

@@ -1,136 +1,174 @@
 'use client'
 
-import { Box, Container, Typography, Button, useTheme } from '@mui/material'
+import { Box, Container, Typography, Button } from '@mui/material'
 import Link from 'next/link'
-import { ArrowForward, GetApp } from '@mui/icons-material'
+import { ArrowForward, CheckCircle } from '@mui/icons-material'
 import { ROUTES } from '@/lib/constants/routes'
+import { BRAND } from '@/styles/theme'
+import { motion } from 'framer-motion'
+
+const MotionBox = motion(Box)
+
+const guarantees = [
+  'Sin tarjeta de crédito',
+  'Prueba de 30 días',
+  'Cancela cuando quieras',
+  'Soporte 24/7',
+]
 
 export function CTASection() {
-  const theme = useTheme()
-
   return (
     <Box
       sx={{
-        py: { xs: 8, md: 12 },
-        background: 'linear-gradient(135deg, #1a1a1a 0%, #242424 50%, #2d2d2d 100%)',
+        py: { xs: 12, md: 20 },
+        background: BRAND.bg0,
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Decorative elements */}
+      {/* Large glow behind CTA */}
       <Box
         sx={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: `
-            radial-gradient(ellipse at 25% 25%, rgba(2, 116, 131, 0.15) 0%, transparent 50%),
-            radial-gradient(ellipse at 75% 75%, rgba(0, 171, 194, 0.1) 0%, transparent 50%)
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '80%',
+          maxWidth: 800,
+          height: '100%',
+          background: `radial-gradient(ellipse, ${BRAND.cyanGlow} 0%, transparent 65%)`,
+          opacity: 0.35,
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Grid pattern */}
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `
+            linear-gradient(rgba(0, 197, 230, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 197, 230, 0.04) 1px, transparent 1px)
           `,
+          backgroundSize: '50px 50px',
+          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
           pointerEvents: 'none',
         }}
       />
 
       <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box textAlign="center">
+        <MotionBox
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          sx={{ textAlign: 'center' }}
+        >
+          {/* Top label */}
+          <Typography
+            variant="overline"
+            sx={{ color: BRAND.cyan, display: 'block', mb: 3, letterSpacing: '0.14em' }}
+          >
+            Empieza hoy mismo
+          </Typography>
+
+          {/* Headline */}
           <Typography
             variant="h2"
             sx={{
-              fontSize: { xs: '2.5rem', md: '3.5rem' },
+              fontSize: { xs: '2.25rem', sm: '3rem', md: '3.75rem' },
               fontWeight: 700,
-              color: 'white',
+              color: BRAND.textPrimary,
+              letterSpacing: '-0.04em',
+              lineHeight: 1.1,
               mb: 3,
-              lineHeight: 1.2,
             }}
           >
-            ¿Listo para transformar
+            ¿Listo para llevar
             <br />
-            <Box component="span" sx={{ color: theme.palette.primary.main }}>
-              tu negocio?
-            </Box>
+            tu negocio al{' '}
+            <span className="gradient-text-cyan">siguiente nivel?</span>
           </Typography>
 
           <Typography
-            variant="h5"
+            variant="body1"
             sx={{
-              color: 'rgba(255, 255, 255, 0.8)',
+              color: BRAND.textSecondary,
               mb: 5,
-              lineHeight: 1.6,
-              maxWidth: '600px',
-              margin: '0 auto 3rem',
+              lineHeight: 1.75,
+              maxWidth: 520,
+              mx: 'auto',
+              fontSize: '1.0625rem',
             }}
           >
-            Únete a miles de empresarios que ya están llevando sus negocios al
-            siguiente nivel con Control. Comienza tu prueba gratuita hoy.
+            Únete a más de 15,000 empresarios que ya gestionan sus negocios con
+            Control. Configuración en minutos, resultados desde el primer día.
           </Typography>
 
+          {/* CTA buttons */}
           <Box
             sx={{
               display: 'flex',
               flexDirection: { xs: 'column', sm: 'row' },
-              gap: 3,
+              gap: 2,
               justifyContent: 'center',
-              alignItems: 'center',
+              mb: 4,
             }}
           >
             <Button
               variant="contained"
               size="large"
               component={Link}
-              href={ROUTES.HOME} // Cambiar cuando exista ruta de registro
+              href={ROUTES.PRICING}
               endIcon={<ArrowForward />}
               sx={{
-                py: 2,
-                px: 6,
-                fontSize: '1.1rem',
-                background: `linear-gradient(45deg, ${theme.palette.primary.main}, #00abc2)`,
-                boxShadow: '0 8px 32px rgba(2, 116, 131, 0.4)',
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 12px 40px rgba(2, 116, 131, 0.5)',
-                },
+                py: 1.875,
+                px: 5,
+                fontSize: '1.0625rem',
               }}
             >
-              Crear Cuenta Gratis
+              Comenzar Gratis Ahora
             </Button>
 
             <Button
               variant="outlined"
               size="large"
-              startIcon={<GetApp />}
+              component={Link}
+              href={ROUTES.CONTACT}
               sx={{
-                py: 2,
-                px: 6,
-                fontSize: '1.1rem',
-                borderColor: 'rgba(255, 255, 255, 0.3)',
-                color: 'rgba(255, 255, 255, 0.9)',
-                borderWidth: 2,
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  borderColor: theme.palette.primary.main,
-                  backgroundColor: 'rgba(2, 116, 131, 0.1)',
-                  transform: 'translateY(-2px)',
-                  borderWidth: 2,
-                },
+                py: 1.875,
+                px: 5,
+                fontSize: '1.0625rem',
               }}
             >
-              Descargar Demo
+              Hablar con Ventas
             </Button>
           </Box>
 
-          <Typography
-            variant="body2"
+          {/* Guarantees */}
+          <Box
             sx={{
-              color: 'rgba(255, 255, 255, 0.6)',
-              mt: 4,
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: { xs: 1.5, md: 3 },
+              justifyContent: 'center',
             }}
           >
-            Sin tarjeta de crédito • Prueba de 30 días • Soporte 24/7
-          </Typography>
-        </Box>
+            {guarantees.map((g, i) => (
+              <Box
+                key={i}
+                sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}
+              >
+                <CheckCircle sx={{ fontSize: 14, color: '#34d399' }} />
+                <Typography variant="body2" sx={{ color: BRAND.textMuted, fontSize: '0.8125rem' }}>
+                  {g}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        </MotionBox>
       </Container>
     </Box>
   )

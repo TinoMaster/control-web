@@ -16,7 +16,6 @@ import {
   CircularProgress,
   Divider,
   Link as MuiLink,
-  Paper,
 } from '@mui/material'
 import Link from 'next/link'
 import {
@@ -27,11 +26,11 @@ import {
   Person,
   Phone,
   Badge,
-  Notes,
 } from '@mui/icons-material'
 import { dataDeletionSchema, type DataDeletionFormData } from '@/lib/schemas/dataDeletion.schema'
 import { dataDeletionService } from '@/lib/api/services/dataDeletion.service'
 import { ROUTES } from '@/lib/constants/routes'
+import { BRAND } from '@/styles/theme'
 
 export default function DataDeletionPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -84,17 +83,17 @@ export default function DataDeletionPage() {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%)',
-        py: 8,
+        background: BRAND.bg0,
+        py: { xs: 6, md: 10 },
       }}
     >
       <Container maxWidth="md">
         <Box
           sx={{
-            bgcolor: 'rgba(255, 255, 255, 0.05)',
+            bgcolor: BRAND.bg2,
             borderRadius: 3,
             p: { xs: 3, md: 6 },
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            border: `1px solid ${BRAND.glassBorder}`,
           }}
         >
           {/* Header */}
@@ -102,14 +101,14 @@ export default function DataDeletionPage() {
             <DeleteForever
               sx={{
                 fontSize: 64,
-                color: '#00abc2',
+                color: BRAND.cyan,
                 mb: 2,
               }}
             />
             <Typography
               variant="h3"
               sx={{
-                color: 'white',
+                color: BRAND.textPrimary,
                 fontWeight: 700,
                 mb: 2,
               }}
@@ -119,7 +118,7 @@ export default function DataDeletionPage() {
             <Typography
               variant="body1"
               sx={{
-                color: 'rgba(255, 255, 255, 0.7)',
+                color: BRAND.textSecondary,
                 maxWidth: '600px',
                 margin: '0 auto',
                 lineHeight: 1.6,
@@ -138,16 +137,16 @@ export default function DataDeletionPage() {
               icon={<CheckCircle />}
               sx={{
                 mb: 4,
-                bgcolor: 'rgba(76, 175, 80, 0.1)',
-                border: '1px solid rgba(76, 175, 80, 0.3)',
-                color: 'white',
-                '& .MuiAlert-icon': { color: '#4CAF50' },
+                bgcolor: 'rgba(52, 211, 153, 0.1)',
+                border: '1px solid rgba(52, 211, 153, 0.3)',
+                color: BRAND.textPrimary,
+                '& .MuiAlert-icon': { color: '#34d399' },
               }}
             >
-              <Typography variant="h6" sx={{ mb: 1 }}>
+              <Typography variant="h6" sx={{ mb: 1, color: BRAND.textPrimary }}>
                 ¡Solicitud Recibida!
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" sx={{ color: BRAND.textSecondary }}>
                 Hemos recibido tu solicitud de eliminación de datos. Recibirás un correo
                 electrónico de confirmación en las próximas horas. Procesaremos tu solicitud en un
                 plazo máximo de 24-48 horas.
@@ -161,10 +160,10 @@ export default function DataDeletionPage() {
               severity="error"
               sx={{
                 mb: 4,
-                bgcolor: 'rgba(244, 67, 54, 0.1)',
-                border: '1px solid rgba(244, 67, 54, 0.3)',
-                color: 'white',
-                '& .MuiAlert-icon': { color: '#f44336' },
+                bgcolor: 'rgba(248, 113, 113, 0.1)',
+                border: '1px solid rgba(248, 113, 113, 0.3)',
+                color: BRAND.textPrimary,
+                '& .MuiAlert-icon': { color: '#f87171' },
               }}
             >
               {submitError}
@@ -172,18 +171,19 @@ export default function DataDeletionPage() {
           )}
 
           {/* What Will Be Deleted Section */}
-          <Paper
+          <Box
             sx={{
               p: 3,
               mb: 4,
-              bgcolor: 'rgba(0, 171, 194, 0.1)',
-              border: '1px solid rgba(0, 171, 194, 0.3)',
+              bgcolor: `${BRAND.cyan}12`,
+              border: `1px solid ${BRAND.cyan}33`,
+              borderRadius: 2,
             }}
           >
             <Typography
               variant="h6"
               sx={{
-                color: '#00abc2',
+                color: BRAND.cyan,
                 fontWeight: 600,
                 mb: 2,
                 display: 'flex',
@@ -194,7 +194,7 @@ export default function DataDeletionPage() {
               <Warning />
               ¿Qué se eliminará?
             </Typography>
-            <Box component="ul" sx={{ pl: 3, color: 'rgba(255, 255, 255, 0.8)' }}>
+            <Box component="ul" sx={{ pl: 3, color: BRAND.textSecondary }}>
               <li>Tu cuenta de usuario</li>
               <li>Información de perfil</li>
               <li>Datos de tu(s) negocio(s)</li>
@@ -204,32 +204,32 @@ export default function DataDeletionPage() {
               <li>Información de empleados</li>
               <li>Toda la información personal almacenada</li>
             </Box>
-          </Paper>
+          </Box>
 
           {/* Important Notice */}
           <Alert
             severity="warning"
             sx={{
               mb: 4,
-              bgcolor: 'rgba(255, 152, 0, 0.1)',
-              border: '1px solid rgba(255, 152, 0, 0.3)',
-              color: 'white',
-              '& .MuiAlert-icon': { color: '#ff9800' },
+              bgcolor: `${BRAND.amber}18`,
+              border: `1px solid ${BRAND.amber}44`,
+              color: BRAND.textPrimary,
+              '& .MuiAlert-icon': { color: BRAND.amber },
             }}
           >
-            <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>
+            <Typography variant="body2" sx={{ fontWeight: 600, mb: 1, color: BRAND.textPrimary }}>
               <strong>Importante:</strong> Esta acción es irreversible
             </Typography>
-            <Typography variant="body2">
+            <Typography variant="body2" sx={{ color: BRAND.textSecondary }}>
               Una vez procesada, no podrás recuperar tu cuenta ni tus datos. Asegúrate de exportar
               cualquier información importante antes de continuar.
             </Typography>
-            <Typography variant="body2" sx={{ mt: 1 }}>
+            <Typography variant="body2" sx={{ mt: 1, color: BRAND.textSecondary }}>
               <strong>Tiempo de procesamiento:</strong> 24-48 horas (máximo 30 días)
             </Typography>
           </Alert>
 
-          <Divider sx={{ my: 4, borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+          <Divider sx={{ my: 4, borderColor: BRAND.glassBorder }} />
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -248,17 +248,7 @@ export default function DataDeletionPage() {
                     error={!!errors.name}
                     helperText={errors.name?.message}
                     InputProps={{
-                      startAdornment: <Person sx={{ mr: 1, color: 'rgba(255, 255, 255, 0.5)' }} />,
-                    }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        color: 'white',
-                        '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.3)' },
-                        '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
-                        '&.Mui-focused fieldset': { borderColor: '#00abc2' },
-                      },
-                      '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-                      '& .MuiFormHelperText-root': { color: '#f44336' },
+                      startAdornment: <Person sx={{ mr: 1, color: BRAND.textMuted }} />,
                     }}
                   />
                 )}
@@ -279,19 +269,7 @@ export default function DataDeletionPage() {
                     error={!!errors.email}
                     helperText={errors.email?.message || 'Email asociado a tu cuenta de Control'}
                     InputProps={{
-                      startAdornment: <Email sx={{ mr: 1, color: 'rgba(255, 255, 255, 0.5)' }} />,
-                    }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        color: 'white',
-                        '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.3)' },
-                        '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
-                        '&.Mui-focused fieldset': { borderColor: '#00abc2' },
-                      },
-                      '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-                      '& .MuiFormHelperText-root': {
-                        color: errors.email ? '#f44336' : 'rgba(255, 255, 255, 0.5)',
-                      },
+                      startAdornment: <Email sx={{ mr: 1, color: BRAND.textMuted }} />,
                     }}
                   />
                 )}
@@ -310,19 +288,7 @@ export default function DataDeletionPage() {
                     error={!!errors.phone}
                     helperText={errors.phone?.message || 'Para verificación adicional'}
                     InputProps={{
-                      startAdornment: <Phone sx={{ mr: 1, color: 'rgba(255, 255, 255, 0.5)' }} />,
-                    }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        color: 'white',
-                        '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.3)' },
-                        '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
-                        '&.Mui-focused fieldset': { borderColor: '#00abc2' },
-                      },
-                      '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-                      '& .MuiFormHelperText-root': {
-                        color: errors.phone ? '#f44336' : 'rgba(255, 255, 255, 0.5)',
-                      },
+                      startAdornment: <Phone sx={{ mr: 1, color: BRAND.textMuted }} />,
                     }}
                   />
                 )}
@@ -343,19 +309,7 @@ export default function DataDeletionPage() {
                       errors.userId?.message || 'Si conoces tu ID de usuario, ingrésalo aquí'
                     }
                     InputProps={{
-                      startAdornment: <Badge sx={{ mr: 1, color: 'rgba(255, 255, 255, 0.5)' }} />,
-                    }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        color: 'white',
-                        '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.3)' },
-                        '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
-                        '&.Mui-focused fieldset': { borderColor: '#00abc2' },
-                      },
-                      '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-                      '& .MuiFormHelperText-root': {
-                        color: errors.userId ? '#f44336' : 'rgba(255, 255, 255, 0.5)',
-                      },
+                      startAdornment: <Badge sx={{ mr: 1, color: BRAND.textMuted }} />,
                     }}
                   />
                 )}
@@ -375,21 +329,6 @@ export default function DataDeletionPage() {
                     rows={4}
                     error={!!errors.reason}
                     helperText={errors.reason?.message || 'Opcional - nos ayuda a mejorar'}
-                    InputProps={{
-                      startAdornment: <Notes sx={{ mr: 1, color: 'rgba(255, 255, 255, 0.5)' }} />,
-                    }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        color: 'white',
-                        '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.3)' },
-                        '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
-                        '&.Mui-focused fieldset': { borderColor: '#00abc2' },
-                      },
-                      '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-                      '& .MuiFormHelperText-root': {
-                        color: errors.reason ? '#f44336' : 'rgba(255, 255, 255, 0.5)',
-                      },
-                    }}
                   />
                 )}
               />
@@ -406,20 +345,20 @@ export default function DataDeletionPage() {
                           {...field}
                           checked={field.value}
                           sx={{
-                            color: 'rgba(255, 255, 255, 0.5)',
-                            '&.Mui-checked': { color: '#00abc2' },
+                            color: BRAND.textMuted,
+                            '&.Mui-checked': { color: BRAND.cyan },
                           }}
                         />
                       }
                       label={
-                        <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+                        <Typography variant="body2" sx={{ color: BRAND.textSecondary }}>
                           Confirmo que entiendo que esta acción es{' '}
-                          <strong style={{ color: '#ff9800' }}>irreversible</strong> y que todos
+                          <Box component="strong" sx={{ color: BRAND.amber }}>irreversible</Box> y que todos
                           mis datos serán eliminados permanentemente. He leído y acepto la{' '}
                           <MuiLink
                             component={Link}
                             href={ROUTES.PRIVACY_POLICY}
-                            sx={{ color: '#00abc2', textDecoration: 'underline' }}
+                            sx={{ color: BRAND.cyan, textDecoration: 'underline' }}
                           >
                             Política de Privacidad
                           </MuiLink>
@@ -446,15 +385,17 @@ export default function DataDeletionPage() {
                 sx={{
                   mt: 2,
                   py: 1.5,
-                  background: 'linear-gradient(45deg, #f44336, #e91e63)',
+                  background: 'linear-gradient(135deg, #ef4444, #dc2626)',
+                  color: 'white',
                   fontWeight: 600,
                   fontSize: '1.1rem',
                   '&:hover': {
-                    background: 'linear-gradient(45deg, #d32f2f, #c2185b)',
+                    background: 'linear-gradient(135deg, #f87171, #ef4444)',
+                    boxShadow: '0 8px 24px rgba(239, 68, 68, 0.3)',
                   },
-                  '&:disabled': {
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    color: 'rgba(255, 255, 255, 0.3)',
+                  '&.Mui-disabled': {
+                    background: BRAND.bg3,
+                    color: BRAND.textMuted,
                   },
                 }}
               >
@@ -478,38 +419,30 @@ export default function DataDeletionPage() {
                 variant="outlined"
                 size="large"
                 fullWidth
-                sx={{
-                  borderColor: 'rgba(255, 255, 255, 0.3)',
-                  color: 'rgba(255, 255, 255, 0.9)',
-                  '&:hover': {
-                    borderColor: '#00abc2',
-                    backgroundColor: 'rgba(0, 171, 194, 0.1)',
-                  },
-                }}
               >
                 Cancelar
               </Button>
             </Box>
           </form>
 
-          <Divider sx={{ my: 4, borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+          <Divider sx={{ my: 4, borderColor: BRAND.glassBorder }} />
 
           {/* Footer Info */}
           <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)', mb: 2 }}>
+            <Typography variant="body2" sx={{ color: BRAND.textMuted, mb: 2 }}>
               ¿Tienes preguntas sobre este proceso?
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
               <MuiLink
                 href="mailto:privacy@control-app.com"
-                sx={{ color: '#00abc2', textDecoration: 'underline' }}
+                sx={{ color: BRAND.cyan, textDecoration: 'underline' }}
               >
                 privacy@control-app.com
               </MuiLink>
               <MuiLink
                 component={Link}
                 href={ROUTES.PRIVACY_POLICY}
-                sx={{ color: '#00abc2', textDecoration: 'underline' }}
+                sx={{ color: BRAND.cyan, textDecoration: 'underline' }}
               >
                 Ver Política de Privacidad
               </MuiLink>

@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import {
   Box,
@@ -13,249 +11,217 @@ import {
   Email,
   Phone,
   LocationOn,
-  Facebook,
-  Twitter,
-  Instagram,
-  LinkedIn,
 } from '@mui/icons-material'
 import { APP_INFO } from '@/data/navigation'
 import { ROUTES } from '@/lib/constants/routes'
+import { BRAND } from '@/styles/theme'
 
-const footerLinks = {
-  product: [
-    { name: 'Características', href: ROUTES.FEATURES },
-    { name: 'Precios', href: ROUTES.PRICING },
-    { name: 'Centro de Ayuda', href: ROUTES.HELP_CENTER },
-  ],
-  support: [
-    { name: 'Centro de Ayuda', href: ROUTES.HELP_CENTER },
-    { name: 'Documentación', href: ROUTES.HELP_CENTER },
-    { name: 'Contacto', href: ROUTES.CONTACT },
-    { name: 'FAQ', href: `${ROUTES.HELP_CENTER}/faq` },
-  ],
-  company: [
-    { name: 'Acerca de', href: ROUTES.ABOUT },
-    { name: 'Blog', href: '#blog' },
-    { name: 'Prensa', href: '#press' },
-  ],
-  legal: [
-    { name: 'Política de Privacidad', href: ROUTES.PRIVACY_POLICY },
-    { name: 'Eliminación de Datos', href: ROUTES.DATA_DELETION },
-    { name: 'Términos de Servicio', href: '#terms' },
-  ],
-}
+const footerSections = [
+  {
+    title: 'Producto',
+    links: [
+      { name: 'Características', href: ROUTES.FEATURES },
+      { name: 'Precios', href: ROUTES.PRICING },
+      { name: 'Centro de Ayuda', href: ROUTES.HELP_CENTER },
+    ],
+  },
+  {
+    title: 'Soporte',
+    links: [
+      { name: 'Centro de Ayuda', href: ROUTES.HELP_CENTER },
+      { name: 'FAQ', href: ROUTES.HELP_CENTER_FAQ },
+      { name: 'Contacto', href: ROUTES.CONTACT },
+    ],
+  },
+  {
+    title: 'Empresa',
+    links: [
+      { name: 'Acerca de', href: ROUTES.ABOUT },
+      { name: 'Blog', href: '#blog' },
+      { name: 'Prensa', href: '#press' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { name: 'Política de Privacidad', href: ROUTES.PRIVACY_POLICY },
+      { name: 'Eliminación de Datos', href: ROUTES.DATA_DELETION },
+      { name: 'Términos de Uso', href: '#terms' },
+    ],
+  },
+]
 
-const socialLinks = [
-  { icon: Facebook, href: '#facebook', label: 'Facebook' },
-  { icon: Twitter, href: '#twitter', label: 'Twitter' },
-  { icon: Instagram, href: '#instagram', label: 'Instagram' },
-  { icon: LinkedIn, href: '#linkedin', label: 'LinkedIn' },
+const contactInfo = [
+  { icon: Email, text: APP_INFO.EMAIL },
+  { icon: Phone, text: APP_INFO.PHONE },
+  { icon: LocationOn, text: APP_INFO.ADDRESS },
 ]
 
 export function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <Box
       component="footer"
       sx={{
-        background: 'linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%)',
-        color: 'white',
-        pt: 8,
-        pb: 4,
+        background: `linear-gradient(180deg, ${BRAND.bg1} 0%, ${BRAND.bg0} 100%)`,
+        borderTop: `1px solid ${BRAND.glassBorder}`,
+        pt: { xs: 8, md: 12 },
+        pb: { xs: 4, md: 6 },
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: '-10%',
+          width: '50%',
+          height: '40%',
+          background: `radial-gradient(ellipse, ${BRAND.cyanGlow} 0%, transparent 70%)`,
+          pointerEvents: 'none',
+          opacity: 0.4,
+        },
       }}
     >
-      <Container maxWidth="lg">
-        <Grid container spacing={4}>
-          {/* Brand Section */}
-          <Grid item xs={12} md={4}>
-            <Box mb={3}>
-              <Typography
-                variant="h4"
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <Grid container spacing={{ xs: 4, md: 6 }}>
+          {/* Brand Column */}
+          <Grid item xs={12} md={4} lg={4}>
+            {/* Logo */}
+            <Box
+              component={Link}
+              href={ROUTES.HOME}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1.5,
+                textDecoration: 'none',
+                mb: 3,
+                width: 'fit-content',
+              }}
+            >
+              <Box
                 sx={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: '9px',
+                  background: BRAND.gradPrimary,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1.1rem',
                   fontWeight: 700,
-                  color: 'primary.light',
-                  mb: 2,
+                  color: BRAND.bg0,
+                  fontFamily: 'var(--font-space-grotesk)',
+                  flexShrink: 0,
+                }}
+              >
+                C
+              </Box>
+              <Typography
+                sx={{
+                  fontFamily: 'var(--font-space-grotesk)',
+                  fontWeight: 700,
+                  fontSize: '1.375rem',
+                  color: BRAND.textPrimary,
+                  letterSpacing: '-0.02em',
                 }}
               >
                 {APP_INFO.NAME}
               </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  lineHeight: 1.6,
-                  mb: 3,
-                }}
-              >
-                {APP_INFO.DESCRIPTION}. La solución completa para la gestión de
-                tu negocio. Controla ventas, inventario, empleados y mucho más
-                desde una sola aplicación.
-              </Typography>
+            </Box>
 
-              {/* Contact Info */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Email sx={{ fontSize: 18, color: 'primary.light' }} />
-                  <Typography variant="body2" color="rgba(255, 255, 255, 0.8)">
-                    {APP_INFO.EMAIL}
+            <Typography
+              variant="body2"
+              sx={{
+                color: BRAND.textSecondary,
+                lineHeight: 1.8,
+                mb: 4,
+                maxWidth: 300,
+              }}
+            >
+              {APP_INFO.DESCRIPTION}. La solución completa para gestionar tu negocio
+              desde tu móvil — ventas, inventario, empleados y más.
+            </Typography>
+
+            {/* Contact Info */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+              {contactInfo.map(({ icon: Icon, text }, i) => (
+                <Box
+                  key={i}
+                  sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}
+                >
+                  <Box
+                    sx={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: '8px',
+                      background: BRAND.glass,
+                      border: `1px solid ${BRAND.glassBorder}`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Icon sx={{ fontSize: 14, color: BRAND.cyan }} />
+                  </Box>
+                  <Typography variant="body2" sx={{ color: BRAND.textMuted }}>
+                    {text}
                   </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Phone sx={{ fontSize: 18, color: 'primary.light' }} />
-                  <Typography variant="body2" color="rgba(255, 255, 255, 0.8)">
-                    {APP_INFO.PHONE}
-                  </Typography>
-                </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <LocationOn sx={{ fontSize: 18, color: 'primary.light' }} />
-                  <Typography variant="body2" color="rgba(255, 255, 255, 0.8)">
-                    {APP_INFO.ADDRESS}
-                  </Typography>
-                </Box>
-              </Box>
+              ))}
             </Box>
           </Grid>
 
-          {/* Links Sections */}
-          <Grid item xs={12} md={8}>
-            <Grid container spacing={4}>
-              <Grid item xs={6} sm={3}>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontWeight: 600,
-                    mb: 2,
-                    color: 'white',
-                  }}
-                >
-                  Producto
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  {footerLinks.product.map((link, index) => (
-                    <MuiLink
-                      key={index}
-                      component={Link}
-                      href={link.href}
-                      sx={{
-                        color: 'rgba(255, 255, 255, 0.7)',
-                        textDecoration: 'none',
-                        fontSize: '0.9rem',
-                        transition: 'color 0.2s ease',
-                        '&:hover': {
-                          color: 'primary.light',
-                        },
-                      }}
-                    >
-                      {link.name}
-                    </MuiLink>
-                  ))}
-                </Box>
-              </Grid>
-
-              <Grid item xs={6} sm={3}>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontWeight: 600,
-                    mb: 2,
-                    color: 'white',
-                  }}
-                >
-                  Soporte
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  {footerLinks.support.map((link, index) => (
-                    <MuiLink
-                      key={index}
-                      component={Link}
-                      href={link.href}
-                      sx={{
-                        color: 'rgba(255, 255, 255, 0.7)',
-                        textDecoration: 'none',
-                        fontSize: '0.9rem',
-                        transition: 'color 0.2s ease',
-                        '&:hover': {
-                          color: 'primary.light',
-                        },
-                      }}
-                    >
-                      {link.name}
-                    </MuiLink>
-                  ))}
-                </Box>
-              </Grid>
-
-              <Grid item xs={6} sm={3}>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontWeight: 600,
-                    mb: 2,
-                    color: 'white',
-                  }}
-                >
-                  Empresa
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  {footerLinks.company.map((link, index) => (
-                    <MuiLink
-                      key={index}
-                      component={Link}
-                      href={link.href}
-                      sx={{
-                        color: 'rgba(255, 255, 255, 0.7)',
-                        textDecoration: 'none',
-                        fontSize: '0.9rem',
-                        transition: 'color 0.2s ease',
-                        '&:hover': {
-                          color: 'primary.light',
-                        },
-                      }}
-                    >
-                      {link.name}
-                    </MuiLink>
-                  ))}
-                </Box>
-              </Grid>
-
-              <Grid item xs={6} sm={3}>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontWeight: 600,
-                    mb: 2,
-                    color: 'white',
-                  }}
-                >
-                  Legal
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  {footerLinks.legal.map((link, index) => (
-                    <MuiLink
-                      key={index}
-                      component={link.href.startsWith('#') ? 'a' : Link}
-                      href={link.href}
-                      sx={{
-                        color: 'rgba(255, 255, 255, 0.7)',
-                        textDecoration: 'none',
-                        fontSize: '0.9rem',
-                        transition: 'color 0.2s ease',
-                        '&:hover': {
-                          color: 'primary.light',
-                        },
-                      }}
-                    >
-                      {link.name}
-                    </MuiLink>
-                  ))}
-                </Box>
-              </Grid>
+          {/* Links Grid */}
+          <Grid item xs={12} md={8} lg={8}>
+            <Grid container spacing={3}>
+              {footerSections.map((section) => (
+                <Grid item xs={6} sm={3} key={section.title}>
+                  <Typography
+                    variant="overline"
+                    sx={{
+                      color: BRAND.textMuted,
+                      display: 'block',
+                      mb: 2.5,
+                      fontSize: '0.6875rem',
+                      letterSpacing: '0.1em',
+                    }}
+                  >
+                    {section.title}
+                  </Typography>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                    {section.links.map((link) => (
+                      <MuiLink
+                        key={link.name}
+                        component={link.href.startsWith('#') ? 'a' : Link}
+                        href={link.href}
+                        sx={{
+                          color: BRAND.textSecondary,
+                          textDecoration: 'none',
+                          fontSize: '0.875rem',
+                          fontFamily: 'var(--font-dm-sans)',
+                          transition: 'color 0.2s ease',
+                          display: 'inline-block',
+                          '&:hover': {
+                            color: BRAND.cyan,
+                          },
+                        }}
+                      >
+                        {link.name}
+                      </MuiLink>
+                    ))}
+                  </Box>
+                </Grid>
+              ))}
             </Grid>
           </Grid>
         </Grid>
 
-        <Divider sx={{ my: 4, borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+        <Divider sx={{ my: { xs: 4, md: 6 }, borderColor: BRAND.glassBorder }} />
 
-        {/* Bottom Section */}
+        {/* Bottom Bar */}
         <Box
           sx={{
             display: 'flex',
@@ -265,34 +231,23 @@ export function Footer() {
             gap: 2,
           }}
         >
-          <Typography
-            variant="body2"
-            sx={{
-              color: 'rgba(255, 255, 255, 0.6)',
-            }}
-          >
-            © {new Date().getFullYear()} {APP_INFO.COMPANY}. Todos los derechos
-            reservados.
+          <Typography variant="body2" sx={{ color: BRAND.textMuted }}>
+            © {currentYear} {APP_INFO.COMPANY}. Todos los derechos reservados.
           </Typography>
 
-          <Box sx={{ display: 'flex', gap: 2 }}>
-            {socialLinks.map((social, index) => (
-              <MuiLink
-                key={index}
-                href={social.href}
-                aria-label={social.label}
-                sx={{
-                  color: 'rgba(255, 255, 255, 0.6)',
-                  transition: 'all 0.2s ease',
-                  '&:hover': {
-                    color: 'primary.light',
-                    transform: 'translateY(-2px)',
-                  },
-                }}
-              >
-                <social.icon sx={{ fontSize: 24 }} />
-              </MuiLink>
-            ))}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Box
+              sx={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: '#34d399',
+                boxShadow: '0 0 8px rgba(52, 211, 153, 0.6)',
+              }}
+            />
+            <Typography variant="body2" sx={{ color: BRAND.textMuted, fontSize: '0.8125rem' }}>
+              Todos los sistemas operativos
+            </Typography>
           </Box>
         </Box>
       </Container>

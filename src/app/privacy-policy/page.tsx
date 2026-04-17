@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Box, Container, Typography, Divider, Link as MuiLink } from '@mui/material'
 import Link from 'next/link'
 import { ROUTES } from '@/lib/constants/routes'
+import { BRAND } from '@/styles/theme'
 
 export const metadata: Metadata = {
   title: 'Política de Privacidad',
@@ -15,23 +16,23 @@ export default function PrivacyPolicyPage() {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%)',
-        py: 8,
+        background: BRAND.bg0,
+        py: { xs: 6, md: 10 },
       }}
     >
       <Container maxWidth="md">
         <Box
           sx={{
-            bgcolor: 'rgba(255, 255, 255, 0.05)',
+            bgcolor: BRAND.bg2,
             borderRadius: 3,
             p: { xs: 3, md: 6 },
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            border: `1px solid ${BRAND.glassBorder}`,
           }}
         >
           <Typography
             variant="h3"
             sx={{
-              color: 'white',
+              color: BRAND.textPrimary,
               fontWeight: 700,
               mb: 2,
               textAlign: 'center',
@@ -43,7 +44,7 @@ export default function PrivacyPolicyPage() {
           <Typography
             variant="body2"
             sx={{
-              color: 'rgba(255, 255, 255, 0.6)',
+              color: BRAND.textMuted,
               mb: 4,
               textAlign: 'center',
             }}
@@ -51,7 +52,7 @@ export default function PrivacyPolicyPage() {
             Última actualización: 5 de enero de 2026
           </Typography>
 
-          <Divider sx={{ mb: 4, borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+          <Divider sx={{ mb: 4, borderColor: BRAND.glassBorder }} />
 
           {/* Introducción */}
           <Section title="1. Introducción">
@@ -231,13 +232,13 @@ export default function PrivacyPolicyPage() {
                 items={[
                   <>
                     Visita nuestra{' '}
-                    <MuiLink
-                      component={Link}
-                      href={ROUTES.DATA_DELETION}
-                      sx={{ color: '#00abc2', textDecoration: 'underline' }}
-                    >
-                      página de eliminación de datos
-                    </MuiLink>
+              <MuiLink
+                    component={Link}
+                    href={ROUTES.DATA_DELETION}
+                    sx={{ color: BRAND.cyan, textDecoration: 'underline' }}
+                  >
+                    página de eliminación de datos
+                  </MuiLink>
                   </>,
                   'Completa el formulario con tu información',
                   'Recibirás un email de confirmación',
@@ -280,7 +281,7 @@ export default function PrivacyPolicyPage() {
                   <MuiLink
                     component={Link}
                     href={ROUTES.DATA_DELETION}
-                    sx={{ color: '#00abc2', textDecoration: 'underline' }}
+                    sx={{ color: BRAND.cyan, textDecoration: 'underline' }}
                   >
                     {process.env.NEXT_PUBLIC_APP_URL || 'https://control-app.vercel.app'}
                     {ROUTES.DATA_DELETION}
@@ -387,12 +388,12 @@ export default function PrivacyPolicyPage() {
               Si tienes preguntas, inquietudes o solicitudes relacionadas con esta Política de
               Privacidad o el manejo de tus datos personales, contáctanos:
             </Text>
-            <Box sx={{ mt: 2, p: 3, bgcolor: 'rgba(0, 171, 194, 0.1)', borderRadius: 2 }}>
+            <Box sx={{ mt: 2, p: 3, bgcolor: `${BRAND.cyan}12`, borderRadius: 2, border: `1px solid ${BRAND.cyan}22` }}>
               <Text>
                 <Strong>Email de Privacidad:</Strong>{' '}
                 <MuiLink
                   href="mailto:privacy@control-app.com"
-                  sx={{ color: '#00abc2', textDecoration: 'underline' }}
+                  sx={{ color: BRAND.cyan, textDecoration: 'underline' }}
                 >
                   privacy@control-app.com
                 </MuiLink>
@@ -401,7 +402,7 @@ export default function PrivacyPolicyPage() {
                 <Strong>Email de Soporte:</Strong>{' '}
                 <MuiLink
                   href="mailto:support@control-app.com"
-                  sx={{ color: '#00abc2', textDecoration: 'underline' }}
+                  sx={{ color: BRAND.cyan, textDecoration: 'underline' }}
                 >
                   support@control-app.com
                 </MuiLink>
@@ -411,7 +412,7 @@ export default function PrivacyPolicyPage() {
                 <MuiLink
                   component={Link}
                   href={ROUTES.DATA_DELETION}
-                  sx={{ color: '#00abc2', textDecoration: 'underline' }}
+                  sx={{ color: BRAND.cyan, textDecoration: 'underline' }}
                 >
                   {ROUTES.DATA_DELETION}
                 </MuiLink>
@@ -428,13 +429,13 @@ export default function PrivacyPolicyPage() {
             </Text>
           </Section>
 
-          <Divider sx={{ my: 4, borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+          <Divider sx={{ my: 4, borderColor: BRAND.glassBorder }} />
 
           {/* Footer */}
           <Box sx={{ textAlign: 'center', mt: 4 }}>
             <Typography
               variant="body2"
-              sx={{ color: 'rgba(255, 255, 255, 0.6)', mb: 2 }}
+              sx={{ color: BRAND.textMuted, mb: 2 }}
             >
               Esta política es efectiva desde el 5 de enero de 2026
             </Typography>
@@ -442,7 +443,7 @@ export default function PrivacyPolicyPage() {
               component={Link}
               href={ROUTES.HOME}
               sx={{
-                color: '#00abc2',
+                color: BRAND.cyan,
                 textDecoration: 'none',
                 '&:hover': { textDecoration: 'underline' },
               }}
@@ -464,7 +465,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <Typography
         variant="h5"
         sx={{
-          color: '#00abc2',
+          color: BRAND.cyan,
           fontWeight: 600,
           mb: 2,
         }}
@@ -482,7 +483,7 @@ function SubSection({ title, children }: { title: string; children: React.ReactN
       <Typography
         variant="h6"
         sx={{
-          color: 'rgba(255, 255, 255, 0.9)',
+          color: BRAND.textPrimary,
           fontWeight: 500,
           mb: 1,
           fontSize: '1.1rem',
@@ -500,7 +501,7 @@ function Text({ children }: { children: React.ReactNode }) {
     <Typography
       variant="body1"
       sx={{
-        color: 'rgba(255, 255, 255, 0.8)',
+        color: BRAND.textSecondary,
         mb: 2,
         lineHeight: 1.7,
       }}
@@ -512,7 +513,7 @@ function Text({ children }: { children: React.ReactNode }) {
 
 function Strong({ children }: { children: React.ReactNode }) {
   return (
-    <Box component="strong" sx={{ color: 'white', fontWeight: 600 }}>
+    <Box component="strong" sx={{ color: BRAND.textPrimary, fontWeight: 600 }}>
       {children}
     </Box>
   )
@@ -526,7 +527,7 @@ function List({ items }: { items: React.ReactNode[] }) {
           key={index}
           component="li"
           sx={{
-            color: 'rgba(255, 255, 255, 0.8)',
+            color: BRAND.textSecondary,
             mb: 1,
             lineHeight: 1.7,
           }}

@@ -1,127 +1,177 @@
 'use client'
 
-import {
-  Box,
-  Container,
-  Typography,
-  Grid,
-  Avatar,
-  Card,
-  CardContent,
-} from '@mui/material'
-import { Star } from '@mui/icons-material'
+import { Box, Container, Typography, Grid, Avatar } from '@mui/material'
+import { FormatQuote } from '@mui/icons-material'
+import StarIcon from '@mui/icons-material/Star'
 import { TESTIMONIALS } from '@/data/testimonials'
+import { BRAND } from '@/styles/theme'
+import { motion } from 'framer-motion'
+
+const MotionBox = motion(Box)
 
 export function TestimonialsSection() {
   return (
     <Box
       sx={{
-        py: { xs: 8, md: 12 },
-        background: 'linear-gradient(180deg, #242424 0%, #2d2d2d 50%, #1a1a1a 100%)',
+        py: { xs: 10, md: 16 },
+        background: `linear-gradient(180deg, ${BRAND.bg0} 0%, ${BRAND.bg1} 100%)`,
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
-      <Container maxWidth="lg">
-        <Box textAlign="center" mb={8}>
+      {/* Background accent */}
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: '10%',
+          left: '-5%',
+          width: '45%',
+          height: '60%',
+          background: `radial-gradient(ellipse, ${BRAND.amberGlow} 0%, transparent 70%)`,
+          opacity: 0.2,
+          pointerEvents: 'none',
+        }}
+      />
+
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        {/* Section Header */}
+        <Box sx={{ textAlign: 'center', mb: { xs: 8, md: 10 } }}>
+          <Typography
+            variant="overline"
+            sx={{ color: BRAND.amber, display: 'block', mb: 2, letterSpacing: '0.14em' }}
+          >
+            Testimonios
+          </Typography>
           <Typography
             variant="h2"
             sx={{
               fontSize: { xs: '2rem', md: '2.75rem' },
               fontWeight: 700,
-              color: 'white',
+              color: BRAND.textPrimary,
+              letterSpacing: '-0.03em',
               mb: 2,
             }}
           >
-            Lo que dicen nuestros
-            <Box component="span" sx={{ color: '#00abc2' }}>
-              {' '}
-              clientes
-            </Box>
+            Lo que dicen nuestros{' '}
+            <span className="gradient-text-amber">clientes</span>
           </Typography>
           <Typography
-            variant="h6"
-            sx={{
-              color: 'rgba(255, 255, 255, 0.7)',
-              maxWidth: '600px',
-              margin: '0 auto',
-              lineHeight: 1.6,
-            }}
+            variant="body1"
+            sx={{ color: BRAND.textSecondary, maxWidth: 480, mx: 'auto' }}
           >
-            Miles de negocios ya confían en Control para gestionar sus operaciones
+            Miles de negocios ya confían en Control para gestionar sus operaciones diarias
           </Typography>
         </Box>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
           {TESTIMONIALS.map((testimonial, index) => (
             <Grid item xs={12} md={4} key={index}>
-              <Card
+              <MotionBox
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.55, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
                 sx={{
                   height: '100%',
-                  background:
-                    'linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02))',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: 3,
+                  background: BRAND.bg2,
+                  border: `1px solid ${BRAND.glassBorder}`,
+                  borderRadius: '20px',
+                  p: { xs: 3, md: 3.5 },
+                  display: 'flex',
+                  flexDirection: 'column',
                   transition: 'all 0.3s ease',
+                  position: 'relative',
+                  overflow: 'hidden',
                   '&:hover': {
-                    transform: 'translateY(-5px)',
-                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+                    borderColor: `${BRAND.amber}44`,
+                    boxShadow: `0 24px 48px rgba(0,0,0,0.3)`,
+                  },
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '1px',
+                    background: `linear-gradient(90deg, transparent, ${BRAND.amber}55, transparent)`,
                   },
                 }}
               >
-                <CardContent sx={{ p: 4 }}>
-                  <Box display="flex" alignItems="center" mb={3}>
-                    <Avatar
-                      sx={{
-                        width: 60,
-                        height: 60,
-                        background: 'linear-gradient(45deg, #027483, #00abc2)',
-                        fontSize: '1.5rem',
-                        fontWeight: 'bold',
-                        mr: 2,
-                      }}
-                    >
-                      {testimonial.avatar}
-                    </Avatar>
-                    <Box>
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          fontWeight: 600,
-                          color: 'white',
-                          mb: 0.5,
-                        }}
-                      >
-                        {testimonial.name}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: 'rgba(255, 255, 255, 0.6)',
-                        }}
-                      >
-                        {testimonial.business}
-                      </Typography>
-                    </Box>
-                  </Box>
+                {/* Quote Icon */}
+                <Box
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: '10px',
+                    background: `${BRAND.amber}18`,
+                    border: `1px solid ${BRAND.amber}30`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mb: 2.5,
+                    flexShrink: 0,
+                  }}
+                >
+                  <FormatQuote sx={{ fontSize: 20, color: BRAND.amber, transform: 'scaleX(-1)' }} />
+                </Box>
 
-                  <Box display="flex" mb={2}>
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} sx={{ color: '#FFD700', fontSize: 20 }} />
-                    ))}
-                  </Box>
+                {/* Stars */}
+                <Box sx={{ display: 'flex', gap: 0.25, mb: 2 }}>
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <StarIcon key={i} sx={{ fontSize: 14, color: BRAND.amber }} />
+                  ))}
+                </Box>
 
-                  <Typography
-                    variant="body1"
+                {/* Comment */}
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: BRAND.textSecondary,
+                    lineHeight: 1.8,
+                    flexGrow: 1,
+                    mb: 3,
+                    fontSize: '0.9375rem',
+                  }}
+                >
+                  &ldquo;{testimonial.comment}&rdquo;
+                </Typography>
+
+                {/* Author */}
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                  <Avatar
                     sx={{
-                      color: 'rgba(255, 255, 255, 0.9)',
-                      lineHeight: 1.6,
-                      fontStyle: 'italic',
+                      width: 40,
+                      height: 40,
+                      background: BRAND.gradPrimary,
+                      fontSize: '0.875rem',
+                      fontFamily: 'var(--font-space-grotesk)',
+                      fontWeight: 700,
+                      color: BRAND.bg0,
                     }}
                   >
-                    &ldquo;{testimonial.comment}&rdquo;
-                  </Typography>
-                </CardContent>
-              </Card>
+                    {testimonial.avatar}
+                  </Avatar>
+                  <Box>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: BRAND.textPrimary,
+                        fontWeight: 600,
+                        fontFamily: 'var(--font-space-grotesk)',
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {testimonial.name}
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      sx={{ color: BRAND.textMuted, fontSize: '0.75rem' }}
+                    >
+                      {testimonial.business}
+                    </Typography>
+                  </Box>
+                </Box>
+              </MotionBox>
             </Grid>
           ))}
         </Grid>

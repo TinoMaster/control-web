@@ -10,15 +10,15 @@
 El frontend tiene los servicios y formularios listos, pero el backend **no tiene estos endpoints implementados**.
 Hasta que no existan, los formularios no pueden enviar datos reales.
 
-- [ ] **Backend**: `POST /api/v1/public/data-deletion-request`
-  - Entidad `DataDeletionRequest` (persistencia de solicitudes)
-  - Envío de email de confirmación al usuario (SMTP)
-  - Notificación al admin
-- [ ] **Backend**: `GET /api/v1/public/faq`
-- [ ] **Backend**: `POST /api/v1/public/contact`
-- [ ] **Backend**: `GET /api/v1/public/testimonials`
-- [ ] **Backend CORS**: Agregar `https://control-web-khaki.vercel.app` como origen permitido
-- [ ] **Backend Email**: Configurar servicio SMTP en `application.properties`
+- [x] **Backend**: `POST /api/v1/public/data-deletion-request` ✅ implementado en `PublicWebController`
+  - Entidad `DataDeletionRequest` (persistencia de solicitudes) ✅
+  - Envío de email de confirmación al usuario (SMTP) ✅ (via EmailService existente)
+  - Notificación al admin ✅
+- [x] **Backend**: `GET /api/v1/public/faq` ✅ implementado
+- [x] **Backend**: `POST /api/v1/public/contact` ✅ implementado
+- [x] **Backend**: `GET /api/v1/public/testimonials` ✅ implementado
+- [x] **Backend CORS**: Ya configurado con `allowedOriginPatterns(*)` en `CorsConfig.java` ✅
+- [ ] **Backend Email**: Configurar SMTP real (actualmente usa MailHog local — cambiar a Gmail/SendGrid para producción)
 
 > Ver guía de deploy: `docs/DEPLOYMENT.md`
 
@@ -26,47 +26,34 @@ Hasta que no existan, los formularios no pueden enviar datos reales.
 
 ## 🟠 ALTA PRIORIDAD — Páginas principales (scaffolded, sin implementar)
 
-Las carpetas ya existen en `app/(marketing)/` pero no tienen `page.tsx`.
+- [x] **`/features`** — `app/(marketing)/features/page.tsx` ✅
+- [x] **`/pricing`** — `app/(marketing)/pricing/page.tsx` ✅
+- [x] **`/contact`** — `app/(marketing)/contact/page.tsx` + `ContactForm.tsx` ✅
+  - Schema Zod: `lib/schemas/contact.schema.ts` ✅
+  - Hook `useContact`: `lib/hooks/useContact.ts` ✅
+- [x] **`/about`** — `app/(marketing)/about/page.tsx` ✅
 
-- [ ] **`/features`** — `app/(marketing)/features/page.tsx`
-  - Características detalladas del sistema
-  - Screenshots/mockups de la app móvil
-  - Comparación entre módulos
+### Centro de Ayuda
 
-- [ ] **`/pricing`** — `app/(marketing)/pricing/page.tsx`
-  - Tabla de planes y precios
-  - FAQ de precios
-  - CTA hacia descarga/registro
-
-- [ ] **`/contact`** — `app/(marketing)/contact/page.tsx`
-  - Formulario de contacto (usar `contactService` ya implementado)
-  - Schema Zod: `lib/schemas/contact.schema.ts`
-  - Hook `useContact`: `lib/hooks/useContact.ts` con mutation
-
-- [ ] **`/about`** — `app/(marketing)/about/page.tsx`
-  - Historia del producto, misión y visión
-
-### Centro de Ayuda (scaffolded, sin implementar)
-
-- [ ] **`app/help-center/faq/page.tsx`** — FAQ con accordion, integración `useFAQ`
-- [ ] **`app/help-center/[slug]/page.tsx`** — Artículos con markdown, TOC, breadcrumbs
-- [ ] **`components/help-center/`** — Componentes reutilizables del help center
-- [ ] **`content/help-center/`** — Artículos en markdown (Getting Started, Ventas, etc.)
+- [x] **`app/help-center/faq/page.tsx`** ✅
+- [x] **`app/help-center/[slug]/page.tsx`** ✅
+- [x] **`components/help-center/`** — FAQAccordion, ArticleCard, HelpCenterBreadcrumbs ✅
+- [x] **`data/helpArticles.ts`** — 4 artículos como objetos TypeScript ✅
 
 ---
 
 ## 🟡 PRIORIDAD MEDIA — SEO y Performance
 
-- [ ] **`app/sitemap.ts`** — Sitemap automático con todas las rutas + artículos dinámicos
-- [ ] **`app/robots.ts`** — Configurar crawling e indexación
-- [ ] **Structured Data (JSON-LD)** — Organization, FAQPage, Product schemas
+- [x] **`app/sitemap.ts`** ✅ — rutas estáticas + artículos dinámicos del help center
+- [x] **`app/robots.ts`** ✅
+- [x] **Structured Data (JSON-LD)** ✅ — Organization + SoftwareApplication en root layout; FAQPage en `/help-center/faq`
 - [ ] **Optimizar imágenes** — Migrar a `next/image` donde no se use aún
 - [ ] **Performance** — Code splitting, lazy loading, Lighthouse >90
 
 ### Integración y Arquitectura
 
-- [ ] **Hook `useContact`** — `lib/hooks/useContact.ts` con mutation
-- [ ] **Hook `useTestimonials`** — `lib/hooks/useTestimonials.ts`
+- [x] **Hook `useContact`** ✅
+- [x] **Hook `useTestimonials`** ✅ — `lib/hooks/useTestimonials.ts` + `lib/api/services/testimonial.service.ts`
 - [ ] **Error boundary global** — Error boundary React + retry logic
 - [ ] **ISR / Cache** — Incremental Static Regeneration para FAQ y testimonios
 
@@ -94,7 +81,7 @@ Las carpetas ya existen en `app/(marketing)/` pero no tienen `page.tsx`.
 
 ---
 
-## 📊 Estado General (2026-04-05)
+## 📊 Estado General (actualizado 2026-04-16)
 
 | Área | Estado | Notas |
 |------|--------|-------|
@@ -102,11 +89,11 @@ Las carpetas ya existen en `app/(marketing)/` pero no tienen `page.tsx`.
 | Landing Page (`/home`) | ✅ Completo | 6 secciones, metadata SEO |
 | Privacy Policy | ✅ Completo | 14 secciones |
 | Data Deletion (frontend) | ✅ Completo | Formulario + Zod + servicio API |
-| Data Deletion (backend) | ❌ Pendiente | Endpoint no existe en Spring Boot |
-| Servicios API (frontend) | ✅ Completo | FAQ, Contact, DataDeletion |
-| Hooks React Query | ⚠️ Parcial | Solo `useFAQ` implementado |
-| Páginas marketing | ⚠️ Scaffolded | Carpetas creadas, sin `page.tsx` |
-| Help Center | ⚠️ Scaffolded | Carpetas creadas, sin contenido |
-| SEO avanzado | ⚠️ Parcial | Base OK, falta sitemap/robots/JSON-LD |
-| Backend endpoints web | ❌ Pendiente | 4 endpoints por implementar |
+| Data Deletion (backend) | ✅ Completo | `POST /api/v1/public/data-deletion-request` |
+| Servicios API (frontend) | ✅ Completo | FAQ, Contact, DataDeletion, Testimonials |
+| Hooks React Query | ✅ Completo | useFAQ, useContact, useTestimonials |
+| Páginas marketing | ✅ Completo | /features, /pricing, /contact, /about |
+| Help Center | ✅ Completo | FAQ, artículos [slug], componentes |
+| SEO avanzado | ✅ Completo | sitemap.ts, robots.ts, JSON-LD |
+| Backend endpoints web | ✅ Completo | 4 endpoints implementados en Spring Boot |
 | Testing | ❌ Pendiente | Sin tests |
