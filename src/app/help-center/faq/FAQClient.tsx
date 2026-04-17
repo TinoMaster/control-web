@@ -6,6 +6,12 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Alert from '@mui/material/Alert'
 import FAQAccordion from '@/components/help-center/FAQAccordion'
 import { useFAQ } from '@/lib/hooks/useFAQ'
+import type { FAQ } from '@/types/api.types'
+
+interface FAQClientProps {
+  /** Pre-fetched FAQs from server (ISR). If provided, skips React Query on first render. */
+  initialFaqs?: FAQ[] | null
+}
 
 const STATIC_FAQS = [
   {
@@ -52,8 +58,11 @@ const STATIC_FAQS = [
   },
 ]
 
-export default function FAQClient() {
-  const { data: apiFaqs, isLoading, isError } = useFAQ()
+export default function FAQClient({ initialFaqs }: FAQClientProps) {
+  // If server pre-fetched data, skip the client query (pass initialData to seed the cache)
+  const { data: apiFaqs, isLoading, isError } = useFAQ(
+    initialFaqs ?? undefined
+  )
   const faqs = apiFaqs && apiFaqs.length > 0 ? apiFaqs : STATIC_FAQS
 
   return (

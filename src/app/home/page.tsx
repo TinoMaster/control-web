@@ -1,10 +1,25 @@
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import { HeroSection } from '@/components/sections/HeroSection'
-import { FeaturesSection } from '@/components/sections/FeaturesSection'
-import { StatsSection } from '@/components/sections/StatsSection'
-import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
-import { PricingSection } from '@/components/sections/PricingSection'
-import { CTASection } from '@/components/sections/CTASection'
+import TestimonialsSectionServer from '@/components/sections/TestimonialsSectionServer'
+
+// Lazy-load below-the-fold sections to improve initial page load
+const FeaturesSection = dynamic(
+  () => import('@/components/sections/FeaturesSection').then((m) => ({ default: m.FeaturesSection })),
+  { ssr: true }
+)
+const StatsSection = dynamic(
+  () => import('@/components/sections/StatsSection').then((m) => ({ default: m.StatsSection })),
+  { ssr: true }
+)
+const PricingSection = dynamic(
+  () => import('@/components/sections/PricingSection').then((m) => ({ default: m.PricingSection })),
+  { ssr: true }
+)
+const CTASection = dynamic(
+  () => import('@/components/sections/CTASection').then((m) => ({ default: m.CTASection })),
+  { ssr: true }
+)
 
 export const metadata: Metadata = {
   title: 'Inicio',
@@ -47,7 +62,7 @@ export default function HomePage() {
       <HeroSection />
       <FeaturesSection />
       <StatsSection />
-      <TestimonialsSection />
+      <TestimonialsSectionServer />
       <PricingSection />
       <CTASection />
     </>

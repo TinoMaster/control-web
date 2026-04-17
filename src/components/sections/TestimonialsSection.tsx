@@ -3,13 +3,30 @@
 import { Box, Container, Typography, Grid, Avatar } from '@mui/material'
 import { FormatQuote } from '@mui/icons-material'
 import StarIcon from '@mui/icons-material/Star'
-import { TESTIMONIALS } from '@/data/testimonials'
+import { TESTIMONIALS as STATIC_TESTIMONIALS } from '@/data/testimonials'
 import { BRAND } from '@/styles/theme'
 import { motion } from 'framer-motion'
+import type { Testimonial } from '@/types/api.types'
 
 const MotionBox = motion(Box)
 
-export function TestimonialsSection() {
+interface TestimonialsSectionProps {
+  /** Testimonials to display. Defaults to static data if not provided. */
+  testimonials?: Testimonial[]
+}
+
+export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
+  // Use provided testimonials or fall back to static data
+  const items = testimonials && testimonials.length > 0
+    ? testimonials
+    : STATIC_TESTIMONIALS.map((t) => ({
+        id: t.name,
+        name: t.name,
+        business: t.business,
+        quote: t.comment,
+        avatar: t.avatar,
+        rating: t.rating,
+      }))
   return (
     <Box
       sx={{
@@ -64,7 +81,7 @@ export function TestimonialsSection() {
         </Box>
 
         <Grid container spacing={3}>
-          {TESTIMONIALS.map((testimonial, index) => (
+          {items.map((testimonial, index) => (
             <Grid item xs={12} md={4} key={index}>
               <MotionBox
                 initial={{ opacity: 0, y: 28 }}
@@ -133,7 +150,7 @@ export function TestimonialsSection() {
                     fontSize: '0.9375rem',
                   }}
                 >
-                  &ldquo;{testimonial.comment}&rdquo;
+                  &ldquo;{testimonial.quote}&rdquo;
                 </Typography>
 
                 {/* Author */}

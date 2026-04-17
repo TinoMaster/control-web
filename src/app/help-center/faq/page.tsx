@@ -7,11 +7,15 @@ import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import { Email, Search } from '@mui/icons-material'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { ROUTES } from '@/lib/constants/routes'
 import ArticleCard from '@/components/help-center/ArticleCard'
-import FAQClient from './FAQClient'
 import { HELP_ARTICLES } from '@/data/helpArticles'
 import JsonLd from '@/components/JsonLd'
+import { fetchFAQs } from '@/lib/api/fetchers'
+
+// Lazy-load the interactive FAQ client (accordion + React Query)
+const FAQClient = dynamic(() => import('./FAQClient'), { ssr: true })
 
 export const metadata: Metadata = {
   title: 'Centro de Ayuda | Control — Gestión Empresarial',
@@ -67,7 +71,10 @@ const faqPageSchema = {
   })),
 }
 
-export default function HelpCenterFAQPage() {
+export default async function HelpCenterFAQPage() {
+  // ISR: pre-fetch FAQs server-side (revalidates every 30 min via fetchers.ts)
+  const initialFaqs = await fetchFAQs()
+
   return (
     <Box
       component="main"
@@ -204,8 +211,8 @@ export default function HelpCenterFAQPage() {
 
         <Divider sx={{ borderColor: 'rgba(255,255,255,0.07)', mb: 10 }} />
 
-        {/* FAQ dinámica desde el backend */}
-        <FAQClient />
+        {/* FAQ dinámica desde el backend — con datos ISR pre-cargados */}
+        <FAQClient initialFaqs={initialFaqs} />
       </Container>
 
       {/* CTA contacto */}

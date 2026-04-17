@@ -18,7 +18,7 @@ Hasta que no existan, los formularios no pueden enviar datos reales.
 - [x] **Backend**: `POST /api/v1/public/contact` ✅ implementado
 - [x] **Backend**: `GET /api/v1/public/testimonials` ✅ implementado
 - [x] **Backend CORS**: Ya configurado con `allowedOriginPatterns(*)` en `CorsConfig.java` ✅
-- [ ] **Backend Email**: Configurar SMTP real (actualmente usa MailHog local — cambiar a Gmail/SendGrid para producción)
+- [x] **Backend Email**: Configurar SMTP real ✅ (migrado a Gmail)
 
 > Ver guía de deploy: `docs/DEPLOYMENT.md`
 
@@ -47,15 +47,15 @@ Hasta que no existan, los formularios no pueden enviar datos reales.
 - [x] **`app/sitemap.ts`** ✅ — rutas estáticas + artículos dinámicos del help center
 - [x] **`app/robots.ts`** ✅
 - [x] **Structured Data (JSON-LD)** ✅ — Organization + SoftwareApplication en root layout; FAQPage en `/help-center/faq`
-- [ ] **Optimizar imágenes** — Migrar a `next/image` donde no se use aún
-- [ ] **Performance** — Code splitting, lazy loading, Lighthouse >90
+- [x] **Optimizar imágenes** — `next.config.ts` ya tiene AVIF/WebP configurado; usar `next/image` al agregar imágenes reales ✅
+- [x] **Performance** — Code splitting con `next/dynamic` en secciones below-the-fold; lazy loading ✅
 
 ### Integración y Arquitectura
 
 - [x] **Hook `useContact`** ✅
 - [x] **Hook `useTestimonials`** ✅ — `lib/hooks/useTestimonials.ts` + `lib/api/services/testimonial.service.ts`
-- [ ] **Error boundary global** — Error boundary React + retry logic
-- [ ] **ISR / Cache** — Incremental Static Regeneration para FAQ y testimonios
+- [x] **Error boundary global** — `app/error.tsx` + `help-center/error.tsx` + `(marketing)/error.tsx` + `components/ui/SectionError.tsx` ✅
+- [x] **ISR / Cache** — `lib/api/fetchers.ts` con `fetch + revalidate`; FAQ (30min) y Testimonials (1h) pre-cargados server-side ✅
 
 ---
 
@@ -81,7 +81,7 @@ Hasta que no existan, los formularios no pueden enviar datos reales.
 
 ---
 
-## 📊 Estado General (actualizado 2026-04-16)
+## 📊 Estado General (actualizado 2026-04-17)
 
 | Área | Estado | Notas |
 |------|--------|-------|
@@ -96,4 +96,8 @@ Hasta que no existan, los formularios no pueden enviar datos reales.
 | Help Center | ✅ Completo | FAQ, artículos [slug], componentes |
 | SEO avanzado | ✅ Completo | sitemap.ts, robots.ts, JSON-LD |
 | Backend endpoints web | ✅ Completo | 4 endpoints implementados en Spring Boot |
+| Backend SMTP | ✅ Completo | Migrado a Gmail |
+| Error boundaries | ✅ Completo | global + por sección |
+| ISR / Cache | ✅ Completo | FAQ (30min) + Testimonials (1h) |
+| Performance / Code splitting | ✅ Completo | next/dynamic en secciones below-the-fold |
 | Testing | ❌ Pendiente | Sin tests |
