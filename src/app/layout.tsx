@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Space_Grotesk, DM_Sans } from 'next/font/google'
-// @ts-expect-error TypeScript does not resolve side-effect CSS imports in this setup.
 import './globals.css'
 import { Providers } from '@/lib/providers'
 import { CONTACT_INFO } from '@/lib/constants/external'

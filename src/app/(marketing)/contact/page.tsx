@@ -9,9 +9,8 @@ import { CONTACT_INFO, EXTERNAL_URLS } from "@/lib/constants/external";
 import { ROUTES } from "@/lib/constants/routes";
 import { BRAND } from "@/styles/theme";
 import { CheckCircle, Email, HelpOutline, WhatsApp } from "@mui/icons-material";
-import { Box, Container, Grid2 as Grid, Link as MuiLink, Typography } from "@mui/material";
+import { Box, Container, Grid2 as Grid, Typography } from "@mui/material";
 import type { Metadata } from "next";
-import Link from "next/link";
 import ContactForm from "./ContactForm";
 
 export const metadata: Metadata = {

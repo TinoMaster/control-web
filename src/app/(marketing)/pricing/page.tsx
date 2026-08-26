@@ -15,7 +15,6 @@ import {
   Close,
   RocketLaunch,
   Schedule,
-  WhatsApp,
 } from "@mui/icons-material";
 import {
   Box,
