@@ -1,7 +1,8 @@
 import { APP_INFO } from "@/data/navigation";
+import { CONTACT_INFO, EXTERNAL_URLS } from "@/lib/constants/external";
 import { ROUTES } from "@/lib/constants/routes";
 import { BRAND } from "@/styles/theme";
-import { Email, LocationOn, Phone } from "@mui/icons-material";
+import { Email, WhatsApp } from "@mui/icons-material";
 import { Box, Container, Divider, Grid2 as Grid, Link as MuiLink, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -42,9 +43,8 @@ const footerSections = [
 ];
 
 const contactInfo = [
-  { icon: Email, text: APP_INFO.EMAIL },
-  { icon: Phone, text: APP_INFO.PHONE },
-  { icon: LocationOn, text: APP_INFO.ADDRESS },
+  { icon: Email, text: CONTACT_INFO.EMAIL, href: `mailto:${CONTACT_INFO.EMAIL}` },
+  { icon: WhatsApp, text: CONTACT_INFO.WHATSAPP_DISPLAY, href: EXTERNAL_URLS.WHATSAPP },
 ];
 
 export function Footer() {
@@ -125,8 +125,23 @@ export function Footer() {
 
             {/* Contact Info */}
             <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-              {contactInfo.map(({ icon: Icon, text }, i) => (
-                <Box key={i} sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+              {contactInfo.map(({ icon: Icon, text, href }, i) => (
+                <Box
+                  key={i}
+                  component="a"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1.5,
+                    textDecoration: "none",
+                    color: BRAND.textMuted,
+                    transition: "color 0.2s ease",
+                    "&:hover": { color: BRAND.cyan },
+                  }}
+                >
                   <Box
                     sx={{
                       width: 30,
@@ -142,7 +157,7 @@ export function Footer() {
                   >
                     <Icon sx={{ fontSize: 14, color: BRAND.cyan }} />
                   </Box>
-                  <Typography variant="body2" sx={{ color: BRAND.textMuted }}>
+                  <Typography variant="body2" component="span" sx={{ color: "inherit" }}>
                     {text}
                   </Typography>
                 </Box>

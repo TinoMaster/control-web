@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Box, Container, Typography, Divider, Link as MuiLink } from '@mui/material'
 import Link from 'next/link'
+import { CONTACT_INFO } from '@/lib/constants/external'
 import { ROUTES } from '@/lib/constants/routes'
 import { BRAND } from '@/styles/theme'
 
@@ -390,21 +391,12 @@ export default function PrivacyPolicyPage() {
             </Text>
             <Box sx={{ mt: 2, p: 3, bgcolor: `${BRAND.cyan}12`, borderRadius: 2, border: `1px solid ${BRAND.cyan}22` }}>
               <Text>
-                <Strong>Email de Privacidad:</Strong>{' '}
+                <Strong>Email de Contacto:</Strong>{' '}
                 <MuiLink
-                  href="mailto:privacy@control-app.com"
+                  href={`mailto:${CONTACT_INFO.EMAIL}`}
                   sx={{ color: BRAND.cyan, textDecoration: 'underline' }}
                 >
-                  privacy@control-app.com
-                </MuiLink>
-              </Text>
-              <Text>
-                <Strong>Email de Soporte:</Strong>{' '}
-                <MuiLink
-                  href="mailto:support@control-app.com"
-                  sx={{ color: BRAND.cyan, textDecoration: 'underline' }}
-                >
-                  support@control-app.com
+                  {CONTACT_INFO.EMAIL}
                 </MuiLink>
               </Text>
               <Text>

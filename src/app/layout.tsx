@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { Space_Grotesk, DM_Sans } from 'next/font/google'
+// @ts-expect-error TypeScript does not resolve side-effect CSS imports in this setup.
 import './globals.css'
 import { Providers } from '@/lib/providers'
+import { CONTACT_INFO } from '@/lib/constants/external'
 import JsonLd from '@/components/JsonLd'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -64,7 +66,6 @@ export const metadata: Metadata = {
     title: 'Control - Sistema de Gestión Empresarial',
     description: 'Gestiona tu negocio completo desde tu móvil',
     images: ['/images/twitter-image.png'],
-    creator: '@control_app',
   },
   robots: {
     index: true,
@@ -92,6 +93,7 @@ const organizationSchema = {
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'customer support',
+    email: CONTACT_INFO.EMAIL,
     url: `${BASE_URL}/contact`,
   },
   sameAs: [],

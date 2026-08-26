@@ -1,3 +1,4 @@
+import { CONTACT_INFO } from '@/lib/constants/external'
 import { ROUTES } from '@/lib/constants/routes'
 
 export interface NavLink {
@@ -41,7 +42,5 @@ export const APP_INFO = {
   DESCRIPTION: 'Gestiona tu negocio completo desde tu móvil',
   VERSION: '1.0.0',
   COMPANY: 'Control',
-  EMAIL: 'contacto@control-app.com',
-  PHONE: '+1 234 567 890',
-  ADDRESS: 'Ciudad, País',
+  EMAIL: CONTACT_INFO.EMAIL,
 } as const

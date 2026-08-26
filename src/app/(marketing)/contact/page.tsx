@@ -5,10 +5,13 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/components/ui/AnimatedElements";
+import { CONTACT_INFO, EXTERNAL_URLS } from "@/lib/constants/external";
+import { ROUTES } from "@/lib/constants/routes";
 import { BRAND } from "@/styles/theme";
-import { CheckCircle, Email, HelpOutline, Schedule, WhatsApp } from "@mui/icons-material";
-import { Box, Container, Grid2 as Grid, Typography } from "@mui/material";
+import { CheckCircle, Email, HelpOutline, WhatsApp } from "@mui/icons-material";
+import { Box, Container, Grid2 as Grid, Link as MuiLink, Typography } from "@mui/material";
 import type { Metadata } from "next";
+import Link from "next/link";
 import ContactForm from "./ContactForm";
 
 export const metadata: Metadata = {
@@ -24,39 +27,35 @@ export const metadata: Metadata = {
 
 const contactChannels = [
   {
-    icon: Email,
-    color: BRAND.cyan,
-    title: "Email",
-    value: "soporte@control.app",
-    description: "Respuesta en menos de 24 horas",
-  },
-  {
     icon: WhatsApp,
     color: "#34d399",
     title: "WhatsApp",
-    value: "+1 234 567 890",
-    description: "Lunes a viernes, 9am–6pm",
+    value: CONTACT_INFO.WHATSAPP_DISPLAY,
+    description: "Respuesta rápida, lunes a viernes",
+    href: EXTERNAL_URLS.WHATSAPP,
+  },
+  {
+    icon: Email,
+    color: BRAND.cyan,
+    title: "Email",
+    value: CONTACT_INFO.EMAIL,
+    description: "Respuesta en menos de 24 horas",
+    href: `mailto:${CONTACT_INFO.EMAIL}`,
   },
   {
     icon: HelpOutline,
     color: BRAND.amber,
     title: "Centro de Ayuda",
-    value: "help.control.app",
-    description: "Documentación y tutoriales",
-  },
-  {
-    icon: Schedule,
-    color: "#a78bfa",
-    title: "Soporte 24/7",
-    value: "Plan Professional",
-    description: "Disponible en plan superior",
+    value: "Documentación y guías",
+    description: "Tutoriales y preguntas frecuentes",
+    href: ROUTES.HELP_CENTER,
   },
 ];
 
 const responseGuarantees = [
   "Respuesta en menos de 24 horas",
   "Soporte en español",
-  "Equipo técnico especializado",
+  "Ayuda personalizada",
   "Seguimiento hasta resolver",
 ];
 
@@ -173,6 +172,10 @@ export default function ContactPage() {
                     {contactChannels.map((channel, i) => (
                       <StaggerItem key={i}>
                         <Box
+                          component="a"
+                          href={channel.href}
+                          target={channel.href.startsWith("http") ? "_blank" : undefined}
+                          rel={channel.href.startsWith("http") ? "noopener noreferrer" : undefined}
                           sx={{
                             display: "flex",
                             alignItems: "flex-start",
@@ -181,10 +184,14 @@ export default function ContactPage() {
                             background: BRAND.bg2,
                             border: `1px solid ${BRAND.glassBorder}`,
                             borderRadius: "14px",
+                            textDecoration: "none",
+                            color: "inherit",
                             transition: "all 0.2s ease",
+                            cursor: "pointer",
                             "&:hover": {
                               borderColor: `${channel.color}44`,
                               background: BRAND.bg3,
+                              transform: "translateY(-2px)",
                             },
                           }}
                         >

@@ -29,6 +29,7 @@ import {
 } from '@mui/icons-material'
 import { dataDeletionSchema, type DataDeletionFormData } from '@/lib/schemas/dataDeletion.schema'
 import { dataDeletionService } from '@/lib/api/services/dataDeletion.service'
+import { CONTACT_INFO } from '@/lib/constants/external'
 import { ROUTES } from '@/lib/constants/routes'
 import { BRAND } from '@/styles/theme'
 
@@ -434,10 +435,10 @@ export default function DataDeletionPage() {
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
               <MuiLink
-                href="mailto:privacy@control-app.com"
+                href={`mailto:${CONTACT_INFO.EMAIL}`}
                 sx={{ color: BRAND.cyan, textDecoration: 'underline' }}
               >
-                privacy@control-app.com
+                {CONTACT_INFO.EMAIL}
               </MuiLink>
               <MuiLink
                 component={Link}
