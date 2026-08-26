@@ -1,9 +1,10 @@
 "use client";
 
 import { PRICING_PLANS } from "@/data/pricing";
+import { EXTERNAL_URLS } from "@/lib/constants/external";
 import { ROUTES } from "@/lib/constants/routes";
 import { BRAND } from "@/styles/theme";
-import { Check, CheckCircle } from "@mui/icons-material";
+import { AccessTime, Check, CheckCircle, Schedule } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -64,13 +65,14 @@ export function PricingSection() {
               mb: 2,
             }}
           >
-            Planes para <span className="gradient-text-cyan">cada negocio</span>
+            Pruébalo <span className="gradient-text-cyan">gratis</span> durante 6 meses
           </Typography>
           <Typography
             variant="body1"
-            sx={{ color: BRAND.textSecondary, maxWidth: 480, mx: "auto" }}
+            sx={{ color: BRAND.textSecondary, maxWidth: 540, mx: "auto" }}
           >
-            Comienza gratis y escala cuando lo necesites. Sin compromisos, sin sorpresas.
+            Regístrate antes del 1 de enero de 2027 y accede a todas las funciones sin restricciones.
+            Sin compromisos.
           </Typography>
         </Box>
 
@@ -86,7 +88,7 @@ export function PricingSection() {
                   height: "100%",
                   display: "flex",
                   flexDirection: "column",
-                  background: plan.popular ? `${BRAND.bg2}` : BRAND.bg2,
+                  background: BRAND.bg2,
                   border: plan.popular
                     ? `2px solid ${BRAND.cyan}`
                     : `1px solid ${BRAND.glassBorder}`,
@@ -103,7 +105,7 @@ export function PricingSection() {
                     boxShadow: plan.popular
                       ? `0 0 80px ${BRAND.cyanGlow}, 0 32px 64px rgba(0,0,0,0.4)`
                       : `0 20px 50px rgba(0,0,0,0.3)`,
-                    transform: "translateY(-4px)",
+                    transform: plan.comingSoon ? "none" : "translateY(-4px)",
                   },
                   ...(plan.popular && {
                     "&::before": {
@@ -115,12 +117,16 @@ export function PricingSection() {
                       zIndex: -1,
                     },
                   }),
+                  ...(plan.comingSoon && {
+                    opacity: 0.7,
+                  }),
                 }}
               >
-                {/* Popular badge */}
-                {plan.popular && (
+                {/* Badge */}
+                {plan.launchPlan && (
                   <Chip
-                    label="✦ Más Popular"
+                    icon={<AccessTime sx={{ fontSize: 14, color: `${BRAND.bg0} !important` }} />}
+                    label="Acceso Total de Lanzamiento"
                     sx={{
                       position: "absolute",
                       top: -14,
@@ -132,6 +138,25 @@ export function PricingSection() {
                       fontSize: "0.75rem",
                       height: 28,
                       letterSpacing: "0.04em",
+                      whiteSpace: "nowrap",
+                      "& .MuiChip-label": { px: 2 },
+                    }}
+                  />
+                )}
+                {plan.comingSoon && (
+                  <Chip
+                    label="Próximamente"
+                    sx={{
+                      position: "absolute",
+                      top: -14,
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      background: `${BRAND.textMuted}22`,
+                      color: BRAND.textMuted,
+                      fontWeight: 600,
+                      fontSize: "0.75rem",
+                      height: 28,
+                      border: `1px solid ${BRAND.textMuted}33`,
                       "& .MuiChip-label": { px: 2 },
                     }}
                   />
@@ -155,16 +180,16 @@ export function PricingSection() {
                     <Typography
                       sx={{
                         fontFamily: "var(--font-space-grotesk)",
-                        fontSize: plan.price === "Gratis" ? "2.25rem" : "3rem",
+                        fontSize: plan.comingSoon ? "1.75rem" : plan.price === "Gratis" ? "2.25rem" : "3rem",
                         fontWeight: 700,
-                        color: plan.popular ? BRAND.cyan : BRAND.textPrimary,
+                        color: plan.popular ? BRAND.cyan : plan.comingSoon ? BRAND.textMuted : BRAND.textPrimary,
                         letterSpacing: "-0.04em",
                         lineHeight: 1,
                       }}
                     >
                       {plan.price}
                     </Typography>
-                    {plan.price !== "Gratis" && (
+                    {plan.period && !plan.comingSoon && (
                       <Typography variant="body2" sx={{ color: BRAND.textMuted }}>
                         {plan.period}
                       </Typography>
@@ -174,6 +199,30 @@ export function PricingSection() {
                   <Typography variant="body2" sx={{ color: BRAND.textMuted, lineHeight: 1.6 }}>
                     {plan.description}
                   </Typography>
+
+                  {plan.deadline && (
+                    <Box
+                      sx={{
+                        mt: 1.5,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 0.75,
+                        px: 1.5,
+                        py: 0.5,
+                        borderRadius: "8px",
+                        background: `${BRAND.cyan}10`,
+                        border: `1px solid ${BRAND.cyan}25`,
+                      }}
+                    >
+                      <Schedule sx={{ fontSize: 14, color: BRAND.cyan }} />
+                      <Typography
+                        variant="caption"
+                        sx={{ color: BRAND.cyan, fontWeight: 600, fontSize: "0.75rem" }}
+                      >
+                        Hasta el {plan.deadline}
+                      </Typography>
+                    </Box>
+                  )}
                 </Box>
 
                 {/* CTA Button */}
@@ -181,12 +230,19 @@ export function PricingSection() {
                   variant={plan.popular ? "contained" : "outlined"}
                   fullWidth
                   size="large"
-                  component={Link}
-                  href={ROUTES.PRICING}
+                  component={plan.comingSoon ? "button" : "a"}
+                  href={plan.comingSoon ? undefined : EXTERNAL_URLS.REGISTER}
+                  target={plan.comingSoon ? undefined : "_blank"}
+                  rel={plan.comingSoon ? undefined : "noopener noreferrer"}
+                  disabled={plan.comingSoon}
                   sx={{
                     py: 1.5,
                     mb: 3.5,
                     fontSize: "0.9375rem",
+                    ...(plan.comingSoon && {
+                      borderColor: `${BRAND.textMuted}33`,
+                      color: BRAND.textMuted,
+                    }),
                   }}
                 >
                   {plan.buttonText}
@@ -200,7 +256,7 @@ export function PricingSection() {
                         <CheckCircle
                           sx={{
                             fontSize: 16,
-                            color: plan.popular ? BRAND.cyan : "#34d399",
+                            color: plan.popular ? BRAND.cyan : plan.comingSoon ? BRAND.textMuted : "#34d399",
                           }}
                         />
                       </ListItemIcon>
@@ -208,7 +264,7 @@ export function PricingSection() {
                         primary={feature}
                         primaryTypographyProps={{
                           sx: {
-                            color: BRAND.textSecondary,
+                            color: plan.comingSoon ? BRAND.textMuted : BRAND.textSecondary,
                             fontSize: "0.875rem",
                             lineHeight: 1.5,
                           },
@@ -224,8 +280,11 @@ export function PricingSection() {
 
         {/* Bottom note */}
         <Box sx={{ textAlign: "center", mt: 6 }}>
+          <Typography variant="body2" sx={{ color: BRAND.textMuted, mb: 0.5 }}>
+            Todos los usuarios registrados durante el lanzamiento obtienen acceso total
+          </Typography>
           <Typography variant="body2" sx={{ color: BRAND.textMuted, mb: 1.5 }}>
-            ¿Necesitas algo más específico para tu empresa?
+            y beneficios exclusivos cuando los planes de pago estén disponibles.
           </Typography>
           <Button
             variant="text"
@@ -234,7 +293,7 @@ export function PricingSection() {
             endIcon={<Check sx={{ fontSize: 14 }} />}
             sx={{ color: BRAND.cyan, fontSize: "0.9375rem" }}
           >
-            Habla con nuestro equipo
+            ¿Tienes preguntas? Habla con nosotros
           </Button>
         </Box>
       </Container>

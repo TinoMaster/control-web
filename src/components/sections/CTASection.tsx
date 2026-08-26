@@ -3,6 +3,7 @@
 import { Box, Container, Typography, Button } from '@mui/material'
 import Link from 'next/link'
 import { ArrowForward, CheckCircle } from '@mui/icons-material'
+import { EXTERNAL_URLS } from '@/lib/constants/external'
 import { ROUTES } from '@/lib/constants/routes'
 import { BRAND } from '@/styles/theme'
 import { motion } from 'framer-motion'
@@ -11,9 +12,9 @@ const MotionBox = motion(Box)
 
 const guarantees = [
   'Sin tarjeta de crédito',
-  'Prueba de 30 días',
+  '6 meses gratis con acceso total',
   'Cancela cuando quieras',
-  'Soporte 24/7',
+  'Soporte por WhatsApp',
 ]
 
 export function CTASection() {
@@ -103,8 +104,8 @@ export function CTASection() {
               fontSize: '1.0625rem',
             }}
           >
-            Únete a más de 15,000 empresarios que ya gestionan sus negocios con
-            Control. Configuración en minutos, resultados desde el primer día.
+            Únete a los negocios que ya gestionan sus ventas, inventario y empleados
+            con Control. Regístrate gratis y accede a todas las funciones durante 6 meses.
           </Typography>
 
           {/* CTA buttons */}
@@ -120,8 +121,10 @@ export function CTASection() {
             <Button
               variant="contained"
               size="large"
-              component={Link}
-              href={ROUTES.PRICING}
+              component="a"
+              href={EXTERNAL_URLS.REGISTER}
+              target="_blank"
+              rel="noopener noreferrer"
               endIcon={<ArrowForward />}
               sx={{
                 py: 1.875,

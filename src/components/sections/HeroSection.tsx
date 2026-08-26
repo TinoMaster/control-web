@@ -7,9 +7,8 @@ import {
   Typography,
   Chip,
 } from '@mui/material'
-import Link from 'next/link'
 import { ArrowForward, PlayArrow, TrendingUp, Inventory2, People } from '@mui/icons-material'
-import { ROUTES } from '@/lib/constants/routes'
+import { EXTERNAL_URLS } from '@/lib/constants/external'
 import { BRAND } from '@/styles/theme'
 import { motion } from 'framer-motion'
 
@@ -113,7 +112,7 @@ export function HeroSection() {
             {/* Badge */}
             <MotionBox variants={itemVariants}>
               <Chip
-                label="✦ Gestión empresarial móvil #1"
+                label="✦ 100% Gratis — 6 meses con acceso total"
                 sx={{
                   mb: 3,
                   background: `${BRAND.cyan}15`,
@@ -163,7 +162,7 @@ export function HeroSection() {
               }}
             >
               La aplicación móvil que centraliza ventas, inventario, clientes y empleados.
-              Toma decisiones inteligentes con datos en tiempo real.
+              Regístrate gratis y accede a todas las funciones durante 6 meses. Sin tarjeta de crédito.
             </MotionTypography>
 
             {/* CTAs */}
@@ -179,8 +178,10 @@ export function HeroSection() {
               <Button
                 variant="contained"
                 size="large"
-                component={Link}
-                href={ROUTES.PRICING}
+                component="a"
+                href={EXTERNAL_URLS.REGISTER}
+                target="_blank"
+                rel="noopener noreferrer"
                 endIcon={<ArrowForward />}
                 sx={{
                   py: 1.75,
