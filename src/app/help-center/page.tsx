@@ -5,7 +5,7 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/components/ui/AnimatedElements";
-import { HELP_ARTICLES, HELP_CATEGORIES } from "@/data/helpArticles";
+import { getAllArticles, HELP_CATEGORIES } from "@/lib/help-content";
 import { ROUTES } from "@/lib/constants/routes";
 import { ArrowForward, ContactSupport, HelpOutline } from "@mui/icons-material";
 import Box from "@mui/material/Box";
@@ -35,7 +35,8 @@ const CATEGORY_ICONS: Record<string, string> = {
   configuracion: "⚙️",
 };
 
-export default function HelpCenterPage() {
+export default async function HelpCenterPage() {
+  const articles = await getAllArticles();
   return (
     <PageTransition>
       <Box component="main" sx={{ bgcolor: "#060c1a", minHeight: "100vh" }}>
@@ -245,7 +246,7 @@ export default function HelpCenterPage() {
           </FadeUp>
           <StaggerContainer>
             <Grid container spacing={3}>
-              {HELP_ARTICLES.map((article) => (
+              {articles.map((article) => (
                 <Grid size={{ xs: 12, sm: 6, md: 3 }} key={article.slug}>
                   <StaggerItem>
                     <ArticleCard
@@ -254,6 +255,7 @@ export default function HelpCenterPage() {
                       description={article.description}
                       category={article.category}
                       readTime={article.readTime}
+                      comingSoon={article.comingSoon}
                     />
                   </StaggerItem>
                 </Grid>

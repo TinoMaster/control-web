@@ -1,35 +1,41 @@
-import { Assessment, BarChart, PieChart, SvgIconComponent, TrendingUp } from "@mui/icons-material";
+import {
+  PointOfSale,
+  Inventory2,
+  People,
+  Assessment,
+  SvgIconComponent,
+} from '@mui/icons-material'
 
 export interface Stat {
-  icon: SvgIconComponent;
-  number: string;
-  label: string;
-  description: string;
+  icon: SvgIconComponent
+  number: string
+  label: string
+  description: string
 }
 
 export const STATS: Stat[] = [
   {
-    icon: TrendingUp,
-    number: "15,000+",
-    label: "Negocios activos",
-    description: "Empresas que confían",
+    icon: PointOfSale,
+    number: '6',
+    label: 'Módulos principales',
+    description: 'POS, inventario, empleados, finanzas, reportes y multi-negocio',
   },
   {
-    icon: BarChart,
-    number: "98%",
-    label: "Satisfacción",
-    description: "De nuestros usuarios",
+    icon: Inventory2,
+    number: '35+',
+    label: 'Funcionalidades',
+    description: 'Todo lo que necesitas para gestionar tu negocio en un solo lugar',
   },
   {
-    icon: PieChart,
-    number: "2M+",
-    label: "Transacciones",
-    description: "Procesadas mensualmente",
+    icon: People,
+    number: 'Ilimitado',
+    label: 'Usuarios y productos',
+    description: 'Sin restricciones en empleados, productos ni transacciones',
   },
   {
     icon: Assessment,
-    number: "24/7",
-    label: "Soporte",
-    description: "Disponible siempre",
+    number: '100%',
+    label: 'Gratis en lanzamiento',
+    description: 'Acceso completo a todas las funciones durante 6 meses',
   },
-];
+]

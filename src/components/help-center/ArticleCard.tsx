@@ -13,9 +13,10 @@ export interface ArticleCardProps {
   description: string
   category: string
   readTime?: string
+  comingSoon?: boolean
 }
 
-export default function ArticleCard({ slug, title, description, category, readTime }: ArticleCardProps) {
+export default function ArticleCard({ slug, title, description, category, readTime, comingSoon }: ArticleCardProps) {
   return (
     <Card
       elevation={0}
@@ -51,6 +52,19 @@ export default function ArticleCard({ slug, title, description, category, readTi
                 fontSize: '0.7rem',
               }}
             />
+            {comingSoon && (
+              <Chip
+                label="Próximamente"
+                size="small"
+                sx={{
+                  bgcolor: 'rgba(245,158,11,0.12)',
+                  color: '#f59e0b',
+                  border: '1px solid rgba(245,158,11,0.25)',
+                  fontWeight: 600,
+                  fontSize: '0.7rem',
+                }}
+              />
+            )}
             {readTime && (
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                 <AccessTime sx={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }} />

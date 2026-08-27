@@ -1,9 +1,10 @@
 import type { MetadataRoute } from 'next'
-import { HELP_ARTICLES } from '@/data/helpArticles'
+import { getAllArticles } from '@/lib/help-content'
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://control-web-khaki.vercel.app'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const articles = await getAllArticles();
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/home`,
@@ -24,16 +25,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}/about`,
+      url: `${BASE_URL}/help-center`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.7,
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/help-center/faq`,
@@ -55,7 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 
-  const articleRoutes: MetadataRoute.Sitemap = HELP_ARTICLES.map((article) => ({
+  const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
     url: `${BASE_URL}/help-center/${article.slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,

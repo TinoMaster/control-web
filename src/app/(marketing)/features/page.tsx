@@ -5,7 +5,7 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/components/ui/AnimatedElements";
-import { ROUTES } from "@/lib/constants/routes";
+import { EXTERNAL_URLS } from "@/lib/constants/external";
 import { BRAND } from "@/styles/theme";
 import {
   AccountBalance,
@@ -14,12 +14,12 @@ import {
   Assessment,
   CheckCircle,
   CloudSync,
+  ContentCopy,
   Groups,
   Inventory2,
   MobileFriendly,
   Notifications,
   People,
-  PointOfSale,
   ReceiptLong,
   Schedule,
   Security,
@@ -37,115 +37,115 @@ import {
   Typography,
 } from "@mui/material";
 import type { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Características",
+  title: "Funciones para centros de copias e impresión",
   description:
-    "Descubre todas las funcionalidades de Control: gestión de ventas, inventario, clientes, empleados, reportes y más. La app de negocios más completa.",
+    "Gestiona servicios de copias, impresiones, diseño y encuadernación. Control de inventario de papel y tóner, empleados, caja y reportes para tu centro de copias en Cuba.",
   openGraph: {
-    title: "Características de Control — Gestión empresarial completa",
-    description: "Todo lo que tu negocio necesita en una sola aplicación móvil.",
+    title: "Funciones de Control — Diseñado para centros de copias e impresión",
+    description:
+      "Todo lo que necesitas para gestionar tu centro de copias: servicios, inventario, empleados, finanzas y reportes.",
     url: "/features",
   },
 };
 
 const mainFeatures = [
   {
-    icon: PointOfSale,
+    icon: ContentCopy,
     color: BRAND.cyan,
-    title: "Punto de Venta (POS)",
+    title: "Gestión de Servicios",
     description:
-      "Sistema de ventas completo con gestión de productos, cobro rápido y generación automática de reportes de turno. Soporta múltiples métodos de pago.",
+      "Registra cada servicio que ofreces — copias, impresiones a color, diseño, escaneo, encuadernación — con precios por unidad, por página o por trabajo completo.",
     benefits: [
-      "POS táctil optimizado para móvil",
-      "Múltiples métodos de pago",
-      "Descuentos y promociones",
-      "Recibos digitales por correo",
-      "Reportes de turno automáticos",
+      "Precios por tipo de servicio y formato",
+      "Registro rápido de trabajos bajo demanda",
+      "Historial de servicios por cliente",
+      "Precios especiales para pedidos grandes",
+      "Soporte para servicios personalizados",
     ],
   },
   {
     icon: Inventory2,
     color: BRAND.amber,
-    title: "Control de Inventario",
+    title: "Inventario de Papel y Tóner",
     description:
-      "Mantén siempre actualizado tu stock con alertas inteligentes. Gestiona proveedores, costos y márgenes, con soporte para múltiples almacenes.",
+      "Controla el stock de papel, tóner, tintas, láminas y materiales. Recibe alertas antes de quedarte sin lo esencial para operar.",
     benefits: [
-      "Alertas de stock mínimo",
-      "Gestión de múltiples almacenes",
-      "Control de costos y márgenes",
-      "Escaneo de códigos de barras",
-      "Movimientos auditables",
+      "Alertas de stock mínimo automáticas",
+      "Control de papel por tipo y tamaño",
+      "Seguimiento de tóner e insumos",
+      "Registro de movimientos y ajustes",
+      "Costos y márgenes por material",
     ],
   },
   {
     icon: Groups,
     color: "#a78bfa",
-    title: "Gestión de Empleados",
+    title: "Tu Equipo de Trabajo",
     description:
-      "Controla turnos, salarios, pagos y desempeño de tu equipo. Asigna roles con niveles de acceso diferenciados para mayor seguridad.",
+      "Organiza turnos, controla pagos y asigna roles. El dueño ve todo, el operador solo lo que necesita para atender clientes.",
     benefits: [
+      "Roles diferenciados: dueño y operador",
       "Control de salarios y pagos",
-      "Roles y permisos granulares",
-      "Registro de entradas y salidas",
-      "Comisiones automáticas",
-      "Reportes de productividad",
+      "Comisiones por ventas del turno",
+      "Registro de actividad por empleado",
+      "Gestión de turnos diarios",
     ],
   },
   {
     icon: AccountBalance,
     color: "#34d399",
-    title: "Finanzas y Caja",
+    title: "Caja y Finanzas",
     description:
-      "Registra ingresos, gastos y extracciones para mantener tus finanzas al día. Cierres de caja automáticos con balance detallado.",
+      "Cierra la caja cada día con el balance exacto de lo cobrado por copias, impresiones, diseño y demás servicios. Registra gastos de papel, tóner y otros insumos.",
     benefits: [
-      "Registro de ingresos y gastos",
-      "Cierres de caja automáticos",
-      "Balance diario y mensual",
-      "Deudas y crédito de clientes",
-      "Exportación a contabilidad",
+      "Cierre de caja diario automático",
+      "Ingresos desglosados por servicio",
+      "Registro de gastos e insumos",
+      "Fiado de clientes y control de deudas",
+      "Balance diario, semanal y mensual",
     ],
   },
   {
     icon: Assessment,
     color: BRAND.cyan,
-    title: "Reportes y Analytics",
+    title: "Reportes de tu Negocio",
     description:
-      "Datos en tiempo real para tomar mejores decisiones. Dashboards visuales con las métricas que más importan para tu tipo de negocio.",
+      "Visualiza qué servicios se venden más, cuáles son las horas pico y cómo rinde cada máquina. Datos en tiempo real para tomar mejores decisiones.",
     benefits: [
-      "Dashboard ejecutivo en tiempo real",
-      "Reportes de ventas diarios",
-      "Análisis de tendencias",
-      "Productos más rentables",
-      "Exportación a Excel y PDF",
+      "Dashboard con métricas del día",
+      "Servicios más vendidos y rentables",
+      "Análisis de tendencias por período",
+      "Comparación entre días y semanas",
+      "Exportación de reportes",
     ],
   },
   {
     icon: Security,
     color: BRAND.amber,
-    title: "Seguridad y Roles",
+    title: "Control de Acceso",
     description:
-      "Control de acceso por 4 niveles de rol (SuperAdmin, Owner, Admin, User). Datos cifrados y auditoría completa de todas las acciones.",
+      "Cada miembro del equipo entra con su propia cuenta y ve solo lo que tú le permitas. Toda la actividad queda registrada para tu tranquilidad.",
     benefits: [
-      "4 niveles de acceso diferenciados",
-      "Autenticación segura JWT",
-      "Registro de auditoría completo",
-      "Backups automáticos",
-      "Sesión controlada por dispositivo",
+      "4 niveles de acceso configurables",
+      "Login seguro por dispositivo",
+      "Registro de todas las operaciones",
+      "El dueño tiene vista completa",
+      "Datos protegidos y respaldados",
     ],
   },
 ];
 
 const additionalFeatures = [
-  { icon: CloudSync, title: "Sincronización en la nube" },
-  { icon: ReceiptLong, title: "Deudas y crédito" },
-  { icon: Schedule, title: "Tareas del equipo" },
-  { icon: Notifications, title: "Alertas push en tiempo real" },
-  { icon: Analytics, title: "Multi-negocio" },
-  { icon: MobileFriendly, title: "iOS y Android" },
+  { icon: CloudSync, title: "Respaldo en la nube" },
+  { icon: ReceiptLong, title: "Fiado y crédito de clientes" },
+  { icon: Schedule, title: "Tareas y pendientes del equipo" },
+  { icon: Notifications, title: "Alertas de stock y pagos" },
+  { icon: Analytics, title: "Varios locales en una cuenta" },
+  { icon: MobileFriendly, title: "Funciona en Android y iOS" },
   { icon: TrendingUp, title: "Comisiones automáticas" },
-  { icon: People, title: "Gestión de clientes" },
+  { icon: People, title: "Directorio de clientes" },
 ];
 
 export default function FeaturesPage() {
@@ -194,7 +194,8 @@ export default function FeaturesPage() {
                   mb: 2,
                 }}
               >
-                Todo en una sola <span className="gradient-text-cyan">aplicación</span>
+                Todo lo que tu centro de{" "}
+                <span className="gradient-text-cyan">copias necesita</span>
               </Typography>
               <Typography
                 variant="body1"
@@ -202,29 +203,32 @@ export default function FeaturesPage() {
                   color: BRAND.textSecondary,
                   lineHeight: 1.7,
                   fontSize: { xs: "1rem", md: "1.125rem" },
-                  maxWidth: 520,
+                  maxWidth: 540,
                   mb: 3.5,
                 }}
               >
-                Control integra más de 12 módulos para operar tu negocio de manera profesional, sin
-                necesidad de múltiples aplicaciones.
+                Control está diseñado para los centros de copias e impresión de Cuba.
+                Gestiona servicios, inventario de papel y tóner, empleados, caja y reportes
+                desde una sola aplicación.
               </Typography>
               <Button
                 variant="contained"
                 size="large"
-                component={Link}
-                href={ROUTES.PRICING}
+                component="a"
+                href={EXTERNAL_URLS.REGISTER}
+                target="_blank"
+                rel="noopener noreferrer"
                 endIcon={<ArrowForward />}
                 sx={{ py: 1.5, px: 3.5 }}
               >
-                Ver Planes y Precios
+                Comenzar Gratis
               </Button>
             </Box>
           </FadeLeft>
         </Container>
       </Box>
 
-      {/* Main Features — Staggered Card Grid */}
+      {/* Main Features */}
       <Box sx={{ py: { xs: 6, md: 10 } }}>
         <Container maxWidth="lg">
           <StaggerContainer speed="normal">
@@ -351,7 +355,7 @@ export default function FeaturesPage() {
               Y mucho más incluido
             </Typography>
             <Typography variant="body2" sx={{ color: BRAND.textSecondary }}>
-              Funcionalidades adicionales para potenciar tu operación
+              Funcionalidades adicionales para tu centro de copias
             </Typography>
           </FadeUp>
 
@@ -408,33 +412,23 @@ export default function FeaturesPage() {
               fontSize: { xs: "1.625rem", md: "1.875rem" },
             }}
           >
-            Prueba todo gratis
+            Pruébalo gratis durante 6 meses
           </Typography>
           <Typography variant="body1" sx={{ color: BRAND.textSecondary, mb: 4, lineHeight: 1.7 }}>
-            30 días de acceso completo a todas las características. Sin tarjeta de crédito
-            requerida.
+            Acceso completo a todas las funciones. Sin tarjeta de crédito, sin compromisos.
           </Typography>
-          <Box sx={{ display: "flex", gap: 2, justifyContent: "center", flexWrap: "wrap" }}>
-            <Button
-              variant="contained"
-              size="large"
-              component={Link}
-              href={ROUTES.PRICING}
-              endIcon={<ArrowForward />}
-              sx={{ py: 1.5, px: 3.5 }}
-            >
-              Ver Precios
-            </Button>
-            <Button
-              variant="outlined"
-              size="large"
-              component={Link}
-              href={ROUTES.CONTACT}
-              sx={{ py: 1.5, px: 3.5 }}
-            >
-              Contactar
-            </Button>
-          </Box>
+          <Button
+            variant="contained"
+            size="large"
+            component="a"
+            href={EXTERNAL_URLS.REGISTER}
+            target="_blank"
+            rel="noopener noreferrer"
+            endIcon={<ArrowForward />}
+            sx={{ py: 1.5, px: 4 }}
+          >
+            Comenzar Gratis
+          </Button>
         </Container>
       </FadeUp>
     </PageTransition>

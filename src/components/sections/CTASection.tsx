@@ -1,10 +1,8 @@
 'use client'
 
 import { Box, Container, Typography, Button } from '@mui/material'
-import Link from 'next/link'
 import { ArrowForward, CheckCircle } from '@mui/icons-material'
 import { EXTERNAL_URLS } from '@/lib/constants/external'
-import { ROUTES } from '@/lib/constants/routes'
 import { BRAND } from '@/styles/theme'
 import { motion } from 'framer-motion'
 
@@ -53,8 +51,10 @@ export function CTASection() {
             linear-gradient(90deg, rgba(0, 197, 230, 0.04) 1px, transparent 1px)
           `,
           backgroundSize: '50px 50px',
-          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
+          maskImage:
+            'radial-gradient(ellipse at center, black 30%, transparent 80%)',
+          WebkitMaskImage:
+            'radial-gradient(ellipse at center, black 30%, transparent 80%)',
           pointerEvents: 'none',
         }}
       />
@@ -70,7 +70,12 @@ export function CTASection() {
           {/* Top label */}
           <Typography
             variant="overline"
-            sx={{ color: BRAND.cyan, display: 'block', mb: 3, letterSpacing: '0.14em' }}
+            sx={{
+              color: BRAND.cyan,
+              display: 'block',
+              mb: 3,
+              letterSpacing: '0.14em',
+            }}
           >
             Empieza hoy mismo
           </Typography>
@@ -87,10 +92,10 @@ export function CTASection() {
               mb: 3,
             }}
           >
-            ¿Listo para llevar
+            Sé de los primeros en
             <br />
-            tu negocio al{' '}
-            <span className="gradient-text-cyan">siguiente nivel?</span>
+            gestionar su negocio con{' '}
+            <span className="gradient-text-cyan">Control</span>
           </Typography>
 
           <Typography
@@ -104,8 +109,8 @@ export function CTASection() {
               fontSize: '1.0625rem',
             }}
           >
-            Únete a los negocios que ya gestionan sus ventas, inventario y empleados
-            con Control. Regístrate gratis y accede a todas las funciones durante 6 meses.
+            Regístrate gratis y accede a todas las funciones durante 6 meses.
+            Sin compromisos, sin tarjeta de crédito.
           </Typography>
 
           {/* CTA buttons */}
@@ -138,15 +143,17 @@ export function CTASection() {
             <Button
               variant="outlined"
               size="large"
-              component={Link}
-              href={ROUTES.CONTACT}
+              component="a"
+              href={EXTERNAL_URLS.WHATSAPP}
+              target="_blank"
+              rel="noopener noreferrer"
               sx={{
                 py: 1.875,
                 px: 5,
                 fontSize: '1.0625rem',
               }}
             >
-              Hablar con Ventas
+              Escribir por WhatsApp
             </Button>
           </Box>
 
@@ -165,7 +172,10 @@ export function CTASection() {
                 sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}
               >
                 <CheckCircle sx={{ fontSize: 14, color: '#34d399' }} />
-                <Typography variant="body2" sx={{ color: BRAND.textMuted, fontSize: '0.8125rem' }}>
+                <Typography
+                  variant="body2"
+                  sx={{ color: BRAND.textMuted, fontSize: '0.8125rem' }}
+                >
                   {g}
                 </Typography>
               </Box>

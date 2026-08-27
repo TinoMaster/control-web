@@ -1,54 +1,54 @@
 import {
-  TrendingUp,
+  ContentCopy,
   Inventory2,
-  People,
+  Groups,
   Assessment,
-  Security,
-  CloudSync,
-} from '@mui/icons-material'
-import { SvgIconComponent } from '@mui/icons-material'
+  AccountBalance,
+  Analytics,
+  SvgIconComponent,
+} from "@mui/icons-material";
 
 export interface Feature {
-  icon: SvgIconComponent
-  title: string
-  description: string
+  icon: SvgIconComponent;
+  title: string;
+  description: string;
 }
 
 export const FEATURES: Feature[] = [
   {
-    icon: TrendingUp,
-    title: 'Gestión de Ventas',
+    icon: ContentCopy,
+    title: "Gestión de Servicios",
     description:
-      'Registra y controla todas tus ventas con reportes detallados y análisis de tendencias en tiempo real.',
+      "Registra copias, impresiones, diseño y encuadernación con precios por servicio y formato.",
   },
   {
     icon: Inventory2,
-    title: 'Control de Inventario',
+    title: "Inventario de Papel y Tóner",
     description:
-      'Mantén un control preciso de tu stock, recibe alertas de productos bajos y gestiona proveedores.',
+      "Controla el stock de papel, tóner e insumos con alertas automáticas de stock mínimo.",
   },
   {
-    icon: People,
-    title: 'Gestión de Clientes',
+    icon: Groups,
+    title: "Tu Equipo de Trabajo",
     description:
-      'Administra tu base de clientes, historial de compras y programas de fidelización.',
+      "Organiza turnos, controla pagos y asigna roles diferenciados para cada miembro del equipo.",
   },
   {
     icon: Assessment,
-    title: 'Reportes y Analytics',
+    title: "Reportes de tu Negocio",
     description:
-      'Obtén insights valiosos con reportes automáticos y métricas clave de tu negocio.',
+      "Visualiza qué servicios se venden más, horas pico y rendimiento por máquina en tiempo real.",
   },
   {
-    icon: Security,
-    title: 'Seguridad Avanzada',
+    icon: AccountBalance,
+    title: "Caja y Finanzas",
     description:
-      'Protección de datos con encriptación de nivel empresarial y backups automáticos.',
+      "Cierres de caja diarios con balance de ingresos por servicio y control de gastos en insumos.",
   },
   {
-    icon: CloudSync,
-    title: 'Sincronización en la Nube',
+    icon: Analytics,
+    title: "Multi-negocio",
     description:
-      'Accede a tu información desde cualquier dispositivo con sincronización automática.',
+      "Gestiona varios locales de copias desde una sola cuenta con datos independientes por sucursal.",
   },
-]
+];

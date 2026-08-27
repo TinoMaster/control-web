@@ -7,19 +7,13 @@ import {
   Typography,
   Chip,
 } from '@mui/material'
-import { ArrowForward, PlayArrow, TrendingUp, Inventory2, People } from '@mui/icons-material'
+import { ArrowForward, TrendingUp, Inventory2, People } from '@mui/icons-material'
 import { EXTERNAL_URLS } from '@/lib/constants/external'
 import { BRAND } from '@/styles/theme'
 import { motion } from 'framer-motion'
 
 const MotionBox = motion(Box)
 const MotionTypography = motion(Typography)
-
-const floatingStats = [
-  { icon: TrendingUp, value: '+34%', label: 'Crecimiento en ventas', color: BRAND.cyan },
-  { icon: Inventory2, value: '99.9%', label: 'Precisión inventario', color: BRAND.amber },
-  { icon: People, value: '15K+', label: 'Negocios activos', color: '#34d399' },
-]
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -112,7 +106,7 @@ export function HeroSection() {
             {/* Badge */}
             <MotionBox variants={itemVariants}>
               <Chip
-                label="✦ 100% Gratis — 6 meses con acceso total"
+                label="✦ Acceso anticipado — 100% gratis"
                 sx={{
                   mb: 3,
                   background: `${BRAND.cyan}15`,
@@ -161,8 +155,9 @@ export function HeroSection() {
                 fontSize: { xs: '1.0625rem', md: '1.125rem' },
               }}
             >
-              La aplicación móvil que centraliza ventas, inventario, clientes y empleados.
-              Regístrate gratis y accede a todas las funciones durante 6 meses. Sin tarjeta de crédito.
+              La aplicación móvil que centraliza ventas, inventario, empleados y finanzas
+              para negocios de copias e impresiones en Cuba. Accede gratis a todas las
+              funciones durante 6 meses.
             </MotionTypography>
 
             {/* CTAs */}
@@ -195,51 +190,36 @@ export function HeroSection() {
               <Button
                 variant="outlined"
                 size="large"
-                startIcon={<PlayArrow />}
+                href="#features"
                 sx={{
                   py: 1.75,
                   px: 4,
                   fontSize: '1rem',
                 }}
               >
-                Ver Demo
+                Ver Características
               </Button>
             </MotionBox>
 
-            {/* Social proof */}
+            {/* Trust indicator */}
             <MotionBox
               variants={itemVariants}
-              sx={{ display: 'flex', alignItems: 'center', gap: 2 }}
+              sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}
             >
-              <Box sx={{ display: 'flex', gap: -0.5 }}>
-                {['M', 'C', 'A', 'J', 'L'].map((letter, i) => (
-                  <Box
-                    key={i}
-                    sx={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: '50%',
-                      background: `linear-gradient(135deg, ${BRAND.cyan} 0%, ${BRAND.cyanDark} 100%)`,
-                      border: `2px solid ${BRAND.bg0}`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '0.6875rem',
-                      fontWeight: 700,
-                      color: BRAND.bg0,
-                      marginLeft: i > 0 ? '-8px' : 0,
-                      fontFamily: 'var(--font-space-grotesk)',
-                    }}
-                  >
-                    {letter}
-                  </Box>
-                ))}
-              </Box>
+              <Box
+                sx={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: '#34d399',
+                  boxShadow: '0 0 8px rgba(52, 211, 153, 0.5)',
+                }}
+              />
               <Typography
                 variant="body2"
                 sx={{ color: BRAND.textMuted, fontSize: '0.8125rem' }}
               >
-                +15,000 negocios confían en Control
+                Diseñado para centros de copias e impresión en Cuba — Sin tarjeta de crédito
               </Typography>
             </MotionBox>
           </MotionBox>
@@ -282,7 +262,7 @@ export function HeroSection() {
                     Resumen del día
                   </Typography>
                   <Typography variant="caption" sx={{ color: BRAND.textMuted }}>
-                    16 Abr, 2026
+                    Vista previa de la interfaz
                   </Typography>
                 </Box>
                 <Box
@@ -324,9 +304,9 @@ export function HeroSection() {
                 }}
               >
                 {[
-                  { label: 'Ventas Hoy', value: '$3,847', change: '+12%', positive: true },
-                  { label: 'Pedidos', value: '94', change: '+8%', positive: true },
-                  { label: 'Clientes', value: '1,284', change: '+5%', positive: true },
+                  { label: 'Ventas Hoy', value: '$1,250', change: '+12%', positive: true },
+                  { label: 'Pedidos', value: '38', change: '+8%', positive: true },
+                  { label: 'Clientes', value: '156', change: '+5%', positive: true },
                   { label: 'Stock Bajo', value: '3 items', change: '', positive: false },
                 ].map((item, i) => (
                   <Box
@@ -412,8 +392,12 @@ export function HeroSection() {
               </Box>
             </Box>
 
-            {/* Floating stat cards */}
-            {floatingStats.map((stat, i) => {
+            {/* Floating feature cards */}
+            {[
+              { icon: TrendingUp, value: 'POS', label: 'Punto de venta', color: BRAND.cyan },
+              { icon: Inventory2, value: 'Stock', label: 'Inventario', color: BRAND.amber },
+              { icon: People, value: 'Equipo', label: 'Empleados', color: '#34d399' },
+            ].map((stat, i) => {
               const positions = [
                 { top: '-5%', right: '-12%' },
                 { bottom: '25%', right: '-14%' },

@@ -1,9 +1,9 @@
 import ArticleCard from "@/components/help-center/ArticleCard";
 import HelpCenterBreadcrumbs from "@/components/help-center/HelpCenterBreadcrumbs";
 import { FadeIn, FadeLeft, FadeRight, PageTransition } from "@/components/ui/AnimatedElements";
-import { HELP_ARTICLES, getArticleBySlug } from "@/data/helpArticles";
+import { getAllArticles, getArticleBySlug } from "@/lib/help-content";
 import { ROUTES } from "@/lib/constants/routes";
-import { AccessTime, ArrowBack, ChatBubbleOutline } from "@mui/icons-material";
+import { AccessTime, ArrowBack, ChatBubbleOutline, Construction } from "@mui/icons-material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
@@ -20,12 +20,13 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return HELP_ARTICLES.map((article) => ({ slug: article.slug }));
+  const articles = await getAllArticles();
+  return articles.map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await getArticleBySlug(slug);
   if (!article) return { title: "Artículo no encontrado" };
 
   return {
@@ -41,11 +42,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function HelpArticlePage({ params }: Props) {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await getArticleBySlug(slug);
 
   if (!article) notFound();
 
-  const related = HELP_ARTICLES.filter(
+  const allArticles = await getAllArticles();
+  const related = allArticles.filter(
     (a) => a.slug !== article.slug && a.category === article.category,
   ).slice(0, 3);
 
@@ -108,6 +110,37 @@ export default async function HelpArticlePage({ params }: Props) {
 
         {/* Contenido */}
         <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
+          {article.comingSoon && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1.5,
+                px: 3,
+                py: 2,
+                mb: 4,
+                borderRadius: "14px",
+                background: "rgba(245,158,11,0.08)",
+                border: "1px solid rgba(245,158,11,0.25)",
+              }}
+            >
+              <Construction sx={{ fontSize: 22, color: "#f59e0b", flexShrink: 0 }} />
+              <Box>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "#f59e0b", fontWeight: 700, lineHeight: 1.4 }}
+                >
+                  Guía en preparación
+                </Typography>
+                <Typography
+                  variant="caption"
+                  sx={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.4 }}
+                >
+                  Esta guía está siendo escrita con pasos detallados. El contenido completo estará disponible próximamente.
+                </Typography>
+              </Box>
+            </Box>
+          )}
           <Grid container spacing={{ xs: 4, md: 6 }}>
             {/* Artículo principal */}
             <Grid size={{ xs: 12, md: 8 }}>
@@ -246,6 +279,7 @@ export default async function HelpArticlePage({ params }: Props) {
                             description={rel.description}
                             category={rel.category}
                             readTime={rel.readTime}
+                            comingSoon={rel.comingSoon}
                           />
                         ))}
                       </Box>

@@ -1,34 +1,54 @@
-export interface Testimonial {
+import {
+  ContentCopy,
+  Print,
+  DesignServices,
+  Book,
+  PhotoCamera,
+  School,
+  SvgIconComponent,
+} from '@mui/icons-material'
+
+export interface BusinessType {
+  icon: SvgIconComponent
   name: string
-  business: string
-  avatar: string
-  rating: number
-  comment: string
+  description: string
 }
 
-export const TESTIMONIALS: Testimonial[] = [
+export const BUSINESS_TYPES: BusinessType[] = [
   {
-    name: 'María García',
-    business: 'Papelería El Estudiante',
-    avatar: 'M',
-    rating: 5,
-    comment:
-      'Control ha transformado completamente la gestión de mi papelería. Ahora puedo llevar un control exacto de mi inventario y mis ventas han aumentado un 30%.',
+    icon: ContentCopy,
+    name: 'Copias y Fotocopias',
+    description:
+      'Controla el volumen de copias diarias, precios por página y el rendimiento de cada máquina.',
   },
   {
-    name: 'Carlos Rodríguez',
-    business: 'Ferretería Los Hermanos',
-    avatar: 'C',
-    rating: 5,
-    comment:
-      'La facilidad de uso y los reportes detallados me han permitido tomar mejores decisiones para mi negocio. Lo recomiendo 100%.',
+    icon: Print,
+    name: 'Impresiones y Formatos',
+    description:
+      'Gestiona impresiones a color, blanco y negro, formatos especiales y trabajos bajo demanda.',
   },
   {
-    name: 'Ana Martínez',
-    business: 'Boutique Elegance',
-    avatar: 'A',
-    rating: 5,
-    comment:
-      'Excelente aplicación para gestionar mi boutique. El sistema de clientes me ha ayudado a fidelizar más compradores.',
+    icon: DesignServices,
+    name: 'Diseño y Diagramación',
+    description:
+      'Lleva el control de trabajos de diseño, clientes, precios y tiempos de entrega.',
+  },
+  {
+    icon: Book,
+    name: 'Encuadernación y Acabados',
+    description:
+      'Administra servicios de encuadernado, plastificado, laminado y acabados profesionales.',
+  },
+  {
+    icon: PhotoCamera,
+    name: 'Fotos y Revelado',
+    description:
+      'Controla pedidos de fotos, tamaños, precios y el inventario de papel y tóner.',
+  },
+  {
+    icon: School,
+    name: 'Artículos Escolares y Oficina',
+    description:
+      'Gestiona el inventario de útiles, papelería y materiales complementarios que vendes.',
   },
 ]

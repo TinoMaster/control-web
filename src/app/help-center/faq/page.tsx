@@ -6,7 +6,7 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/components/ui/AnimatedElements";
-import { HELP_ARTICLES } from "@/data/helpArticles";
+import { getAllArticles } from "@/lib/help-content";
 import { fetchFAQs } from "@/lib/api/fetchers";
 import { ROUTES } from "@/lib/constants/routes";
 import { Email, Search } from "@mui/icons-material";
@@ -80,6 +80,7 @@ const faqPageSchema = {
 export default async function HelpCenterFAQPage() {
   // ISR: pre-fetch FAQs server-side (revalidates every 30 min via fetchers.ts)
   const initialFaqs = await fetchFAQs();
+  const articles = await getAllArticles();
 
   return (
     <PageTransition>
@@ -210,7 +211,7 @@ export default async function HelpCenterFAQPage() {
           </FadeUp>
           <StaggerContainer>
             <Grid container spacing={3} sx={{ mb: 10 }}>
-              {HELP_ARTICLES.map((article) => (
+              {articles.map((article) => (
                 <Grid size={{ xs: 12, sm: 6, md: 3 }} key={article.slug}>
                   <StaggerItem>
                     <ArticleCard
@@ -219,6 +220,7 @@ export default async function HelpCenterFAQPage() {
                       description={article.description}
                       category={article.category}
                       readTime={article.readTime}
+                      comingSoon={article.comingSoon}
                     />
                   </StaggerItem>
                 </Grid>

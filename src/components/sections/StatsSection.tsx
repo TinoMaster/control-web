@@ -46,7 +46,7 @@ export function StatsSection() {
             variant="overline"
             sx={{ color: BRAND.cyan, display: "block", mb: 2, letterSpacing: "0.14em" }}
           >
-            Impacto real
+            Todo lo que necesitas
           </Typography>
           <Typography
             variant="h2"
@@ -58,13 +58,13 @@ export function StatsSection() {
               mb: 2,
             }}
           >
-            Números que hablan
+            Una app, múltiples módulos
           </Typography>
           <Typography
             variant="body1"
             sx={{ color: BRAND.textSecondary, maxWidth: 480, mx: "auto" }}
           >
-            La confianza de miles de empresarios nos respalda
+            Gestiona todas las áreas de tu negocio desde un solo lugar
           </Typography>
         </Box>
 
